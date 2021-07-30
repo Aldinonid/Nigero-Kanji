@@ -14,6 +14,7 @@
 		A511DEF826B43C25005E5BE9 /* Nigero_Kanji.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A511DEF626B43C25005E5BE9 /* Nigero_Kanji.xcdatamodeld */; };
 		A511DEFA26B43C25005E5BE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A511DEF926B43C25005E5BE9 /* Assets.xcassets */; };
 		A511DEFD26B43C25005E5BE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A511DEFB26B43C25005E5BE9 /* LaunchScreen.storyboard */; };
+		A511DF0626B43C40005E5BE9 /* Questions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A511DF0526B43C40005E5BE9 /* Questions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		A511DEF926B43C25005E5BE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A511DEFC26B43C25005E5BE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A511DEFE26B43C25005E5BE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A511DF0526B43C40005E5BE9 /* Questions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Questions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 		A511DEE126B43C25005E5BE9 = {
 			isa = PBXGroup;
 			children = (
+				A511DF0426B43C2F005E5BE9 /* Model */,
 				A511DEEC26B43C25005E5BE9 /* Nigero Kanji */,
 				A511DEEB26B43C25005E5BE9 /* Products */,
 			);
@@ -68,6 +71,14 @@
 				A511DEF626B43C25005E5BE9 /* Nigero_Kanji.xcdatamodeld */,
 			);
 			path = "Nigero Kanji";
+			sourceTree = "<group>";
+		};
+		A511DF0426B43C2F005E5BE9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A511DF0526B43C40005E5BE9 /* Questions.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +154,7 @@
 				A511DEF226B43C25005E5BE9 /* ViewController.swift in Sources */,
 				A511DEF826B43C25005E5BE9 /* Nigero_Kanji.xcdatamodeld in Sources */,
 				A511DEEE26B43C25005E5BE9 /* AppDelegate.swift in Sources */,
+				A511DF0626B43C40005E5BE9 /* Questions.swift in Sources */,
 				A511DEF026B43C25005E5BE9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
