@@ -128,12 +128,13 @@ class Question{
 //        
 //        //print jawaban
 //        
-//        print("\n sssttt jawabannya adalah : \(answerKanji.karakter)")
+        print("\n sssttt jawabannya adalah : \(answerKanji.karakter)")
         
         
         
         //dump(screenKanji1)
         //        showKanji()
+        
         
     }
 }
