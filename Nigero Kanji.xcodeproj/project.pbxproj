@@ -116,7 +116,8 @@
 			children = (
 				A54ED15526BA37C700A1C6A1 /* Questions.swift */,
 			);
-			path = Model;
+			name = Model;
+			path = "Nigero Kanji";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,7 +352,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 46Z46S2G8M;
+				DEVELOPMENT_TEAM = BAR45359BA;
 				INFOPLIST_FILE = "Nigero Kanji/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -370,7 +371,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 46Z46S2G8M;
+				DEVELOPMENT_TEAM = BAR45359BA;
 				INFOPLIST_FILE = "Nigero Kanji/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

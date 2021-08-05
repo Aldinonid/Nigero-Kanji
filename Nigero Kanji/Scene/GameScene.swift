@@ -25,6 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var levelTimerLabel = SKLabelNode(fontNamed: "theboldfont.ttf")
     var answerLabel = SKLabelNode(fontNamed: "theboldfont.ttf")
     var model = Question()
+    var dummy:SKSpriteNode!
 //    var kanjiBallon1 = ""
 //    var kanjiBallon2 = ""
 //    var kanjiBallon3 = ""
@@ -226,10 +227,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         levelTimerLabel.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/1.08)
         addChild(levelTimerLabel)
         
-        
+        dummy = SKSpriteNode(imageNamed: "shuttle")
+        addChild(self.dummy)
+        dummy.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/2)
+     //   spawnAnswer.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height + spawnAnswer.size.height)
         playerMove()
         spawn()
         timmer()
+        
 //        kanjiLabel()
         
         motionManger.accelerometerUpdateInterval = 0.2
@@ -433,6 +438,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }else{
                    levelTimerValue = levelTime
                     kanjiLabel()
+//                    correctposition()
                     levelNumber += 1
                     
                     if levelNumber == 10 {
@@ -454,6 +460,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(2.5), target: self, selector: #selector(runningBackground2), userInfo: nil, repeats: true)
 //        gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(kanjiLabel), userInfo: nil, repeats: true)
 //        gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue+2), target: self, selector: #selector(showKanji), userInfo: nil, repeats: true)
+        
+        
     }
     
     
@@ -559,6 +567,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let spawnAnswer = SKSpriteNode(imageNamed: "alien")
         
+            
         spawnAnswer.physicsBody = SKPhysicsBody(rectangleOf: spawnAnswer.size)
         spawnAnswer.physicsBody?.isDynamic = true
         spawnAnswer.setScale(5)
@@ -585,6 +594,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        possibleAliens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: possibleAliens) as! [String]
         
         let spawnAnswer = SKSpriteNode(imageNamed: "alien")
+        
         
         spawnAnswer.physicsBody = SKPhysicsBody(rectangleOf: spawnAnswer.size)
         spawnAnswer.physicsBody?.isDynamic = true
@@ -613,6 +623,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let spawnAnswer = SKSpriteNode(imageNamed: "alien")
         
+        
         spawnAnswer.physicsBody = SKPhysicsBody(rectangleOf: spawnAnswer.size)
         spawnAnswer.physicsBody?.isDynamic = true
         spawnAnswer.setScale(5)
@@ -639,6 +650,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        possibleAliens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: possibleAliens) as! [String]
         
         let spawnAnswer = SKSpriteNode(imageNamed: "alien")
+        
         
         spawnAnswer.physicsBody = SKPhysicsBody(rectangleOf: spawnAnswer.size)
         spawnAnswer.physicsBody?.isDynamic = true
@@ -933,9 +945,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //       self.run(spawnForever, withKey: "spawningEnemies")
    }
     
+    func correctposition(){
+        
+        if (self.player.position.x > (self.gameArea.maxX - self.player.size.width)){
+//            var actionArray = [SKAction]()
+//            let animationDuration:TimeInterval = 1
+//            actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: -self.player.size.width ), duration: animationDuration)) // end poin
+            addChild(self.dummy)
+            dummy.position = CGPoint(x: self.frame.size.width/10, y: self.frame.size.height/2)
+        }
+    }
+
+    
     override func didSimulatePhysics() {
         
-        player.position.x += xAcceleration * 50
+        player.position.x += xAcceleration * 100
         
         if (self.player.position.x > (self.gameArea.maxX - self.player.size.width)){
             self.player.position.x = (self.gameArea.maxX - self.player.size.width)
