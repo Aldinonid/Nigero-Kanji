@@ -15,21 +15,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var sakuraFalls:SKEmitterNode!
     var player:SKSpriteNode!
     var pauseBTN = SKSpriteNode()
-    var unpauseBTN = SKSpriteNode()
-    let scoreLabel = SKLabelNode(fontNamed: "theboldfont.ttf")
-    let livesLabel = SKLabelNode(fontNamed: "theboldfont.ttf")
-    let questionLabel = SKLabelNode(fontNamed: "theboldfont.ttf")
-    let kanjiLebel1 = SKLabelNode(fontNamed: "theboldfont.ttf")
-    let kanjiLebel2 = SKLabelNode(fontNamed: "theboldfont.ttf")
-    let kanjiLebel3 = SKLabelNode(fontNamed: "theboldfont.ttf")
-    let kanjiLebel4 = SKLabelNode(fontNamed: "theboldfont.ttf")
-    let countDownLabel = SKLabelNode(fontNamed: "theboldfont.ttf")
-    var levelTimerLabel = SKLabelNode(fontNamed: "theboldfont.ttf")
-    var answerLabel = SKLabelNode(fontNamed: "theboldfont.ttf")
+//    var unpauseBTN = SKSpriteNode()
+//    let worldNode = SKNode()
+    var unpauseBTN = SKLabelNode(fontNamed: "arial")
+    var pauseBackground: SKSpriteNode!
+    let scoreLabel = SKLabelNode(fontNamed: "arial")
+    let livesLabel = SKLabelNode(fontNamed: "arial")
+    let questionLabel = SKLabelNode(fontNamed: "arial")
+    let kanjiLebel1 = SKLabelNode(fontNamed: "arial")
+    let kanjiLebel2 = SKLabelNode(fontNamed: "arial")
+    let kanjiLebel3 = SKLabelNode(fontNamed: "arial")
+    let kanjiLebel4 = SKLabelNode(fontNamed: "arial")
+    let countDownLabel = SKLabelNode(fontNamed: "arial")
+    var levelTimerLabel = SKLabelNode(fontNamed: "arial")
+    var answerLabel = SKLabelNode(fontNamed: "arial")
     var model = Question()
     
     var livesNumber = 3
     var levelNumber = 1
+    var gameTime = 7
     var levelTime = 7
     var levelTimerValue: Int = 7 {
         didSet {
@@ -81,16 +85,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
-    
-    
     override func didMove(to view: SKView) {
         
         sakuraFalls = SKEmitterNode(fileNamed: "Starfield")
         sakuraFalls.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height)
         sakuraFalls.advanceSimulationTime(10)
-        sakuraFalls.setScale(1.1)
+        sakuraFalls.setScale(1)
         self.addChild(sakuraFalls)
         sakuraFalls.zPosition = 1
         
@@ -105,26 +105,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let question = model.kanjiArti
         let answer = model.kanjiKarakter
         
-        if kanjiBallon1 != answer {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAlien1), userInfo: nil, repeats: false)
-        }else {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAnswer1), userInfo: nil, repeats: false)
-        }
-        if kanjiBallon2 != answer{
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAlien2), userInfo: nil, repeats: false)
-        }else {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAnswer2), userInfo: nil, repeats: false)
-        }
-        if kanjiBallon3 != answer {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAlien3), userInfo: nil, repeats: false)
-        }else {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAnswer3), userInfo: nil, repeats: false)
-        }
-        if kanjiBallon4 != answer {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAlien4), userInfo: nil, repeats: false)
-        }else {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAnswer4), userInfo: nil, repeats: false)
-        }
+        let wait = SKAction.wait(forDuration: 1) //change countdown speed here
+        let block = SKAction.run({
+                [unowned self] in
+
+                if gameTime > 0 {
+                   gameTime -= 1
+                }else {
+                    
+                    if kanjiBallon1 != answer {
+                        addAlien1()
+                    }else {
+                        addAnswer1()
+                    }
+                    if kanjiBallon2 != answer{
+                       addAlien2()
+                    }else {
+                        addAnswer2()
+                    }
+                    if kanjiBallon3 != answer {
+                        addAlien3()
+                    }else {
+                        addAnswer3()
+                    }
+                    if kanjiBallon4 != answer {
+                        addAlien4()
+                    }else {
+                       addAnswer4()
+                    }
+                    
+                }
+            })
+            let sequence = SKAction.sequence([block, wait])
+        run(SKAction.repeatForever(sequence))
         
         self.questionLabel.text = "Guess Which the Meaning of Kanji is \"\(question)\""
         questionLabel.numberOfLines = 3
@@ -142,7 +155,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         answerLabel.preferredMaxLayoutWidth = self.frame.size.width/2
         answerLabel.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) - 300)
         answerLabel.zPosition = 1
-//       self.addChild(answerLabel)
+       self.addChild(answerLabel)
         
         kanjiLebel1.text = kanjiBallon1
         kanjiLebel1.fontSize = 175
@@ -164,7 +177,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         kanjiLebel3.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.25)
         kanjiLebel3.zPosition = 1
         self.addChild(kanjiLebel3)
-        
         
         kanjiLebel4.text = kanjiBallon4
         kanjiLebel4.fontSize = 175
@@ -191,7 +203,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.scoreLabel.fontSize = 70
         self.scoreLabel.fontColor = SKColor.brown
         self.scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        self.scoreLabel.position = CGPoint(x: self.frame.size.width/7.8, y: self.frame.size.height/1.08)
+        self.scoreLabel.position = CGPoint(x: self.frame.size.width/12, y: self.frame.size.height/1.08)
         self.scoreLabel.zPosition = 100
         self.addChild(self.scoreLabel)
         
@@ -199,28 +211,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.livesLabel.fontSize = 70
         self.livesLabel.fontColor = SKColor.brown
         self.livesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
-        self.livesLabel.position = CGPoint(x: self.frame.size.width/1.130, y: self.frame.size.height/1.08)
+        self.livesLabel.position = CGPoint(x: self.frame.size.width/1.05, y: self.frame.size.height/1.08)
         self.livesLabel.zPosition = 100
         self.addChild(self.livesLabel)
         
         // Timer
         levelTimerLabel.fontColor = SKColor.brown
-        levelTimerLabel.fontSize = 100
+        levelTimerLabel.fontSize = 70
         levelTimerLabel.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/1.08)
         addChild(levelTimerLabel)
+
+        pauseBTN = SKSpriteNode(imageNamed: "pausebutton")
+        pauseBTN.position = CGPoint(x: (self.frame.size.width/8) - 50, y: self.frame.size.height/1.08)
+        pauseBTN.setScale(0.5)
+        pauseBTN.zPosition = 3
+        addChild(pauseBTN)
+        pauseBTN.isHidden = false
         
+        unpauseBTN.text = "Resume"
+        unpauseBTN.color = UIColor.brown
+        unpauseBTN.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
+        unpauseBTN.zPosition = 3
+        unpauseBTN.setScale(5)
+        addChild(unpauseBTN)
+        unpauseBTN.isHidden = true
+        
+        pauseBackground = SKSpriteNode(imageNamed: "pauseBackground")
+        pauseBackground.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) + 50)
+        pauseBackground.zPosition = 2
+        pauseBackground.setScale(2.5)
+        addChild(pauseBackground)
+        pauseBackground.isHidden = true
         
         playerMove()
         spawn()
         timmer()
-        createPauseBTN()
-        createunPauseBTN()
+//        kanjiLabel()
         
         motionManger.accelerometerUpdateInterval = 0.2
         motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
-            if let accelerometerData = data {
-                let acceleration = accelerometerData.acceleration
-                self.xAcceleration = CGFloat(acceleration.x) * 0.75 + self.xAcceleration * 0.25
+        if let accelerometerData = data {
+           let acceleration = accelerometerData.acceleration
+           self.xAcceleration = CGFloat(acceleration.x) * 0.75 + self.xAcceleration * 0.25
             }
         }
         
@@ -244,28 +276,64 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.answerLabel.text = answer
         
 //        print(kanjiBallon1, kanjiBallon2, kanjiBallon3, kanjiBallon4, question, answer)
-       
         
-        if kanjiBallon1 != answer {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAlien1), userInfo: nil, repeats: false)
-        }else {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAnswer1), userInfo: nil, repeats: false)
-        }
-        if kanjiBallon2 != answer{
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAlien2), userInfo: nil, repeats: false)
-        }else {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAnswer2), userInfo: nil, repeats: false)
-        }
-        if kanjiBallon3 != answer {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAlien3), userInfo: nil, repeats: false)
-        }else {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAnswer3), userInfo: nil, repeats: false)
-        }
-        if kanjiBallon4 != answer {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAlien4), userInfo: nil, repeats: false)
-        }else {
-            gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(levelTimerValue), target: self, selector: #selector(addAnswer4), userInfo: nil, repeats: false)
-        }
+        let wait = SKAction.wait(forDuration: 1) //change countdown speed here
+        let block = SKAction.run({
+                [unowned self] in
+
+                if gameTime > 0 {
+                   gameTime -= 1
+                }else {
+                    
+                    if kanjiBallon1 != answer {
+                        addAlien1()
+                    }else {
+                        addAnswer1()
+                    }
+                    if kanjiBallon2 != answer{
+                       addAlien2()
+                    }else {
+                        addAnswer2()
+                    }
+                    if kanjiBallon3 != answer {
+                        addAlien3()
+                    }else {
+                        addAnswer3()
+                    }
+                    if kanjiBallon4 != answer {
+                        addAlien4()
+                    }else {
+                       addAnswer4()
+                    }
+                    
+                }
+            })
+            let sequence = SKAction.sequence([block, wait])
+        run(SKAction.repeatForever(sequence))
+                    
+//                if kanjiBallon1 != answer {
+//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAlien1), userInfo: nil, repeats: false)
+//                }else {
+//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAnswer1), userInfo: nil, repeats: false)
+//                }
+//                if kanjiBallon2 != answer{
+//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAlien2), userInfo: nil, repeats: false)
+//                }else {
+//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAnswer2), userInfo: nil, repeats: false)
+//                }
+//                if kanjiBallon3 != answer {
+//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAlien3), userInfo: nil, repeats: false)
+//                }else {
+//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAnswer3), userInfo: nil, repeats: false)
+//                }
+//                if kanjiBallon4 != answer {
+//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAlien4), userInfo: nil, repeats: false)
+//                }else {
+//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAnswer4), userInfo: nil, repeats: false)
+//                }
+//                    gameTime = levelTime
+            
+           
     }
     
     @objc func playerMove() {
@@ -301,7 +369,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 2.5
         self.addChild(background)
         var actionBackground = [SKAction]()
-        background.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height+self.frame.size.height/2)
+        background.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height+frame.size.height/2)
         actionBackground.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2), duration: animationDuration))
         background.run(SKAction.sequence(actionBackground))
         background.zPosition = -1
@@ -310,7 +378,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func timmer() {
         
-        levelTimerLabel.text = "Time left: \(levelTimerValue)"
+        levelTimerLabel.text = "Time : \(levelTimerValue)"
         let wait = SKAction.wait(forDuration: 1) //change countdown speed here
         let block = SKAction.run({
                 [unowned self] in
@@ -318,19 +386,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if levelTimerValue > 0{
                    levelTimerValue -= 1
                 }else{
-                   levelTimerValue = levelTime
+                    levelTimerValue = levelTime
+                    gameTime = levelTime
                     kanjiLabel()
-                    levelNumber += 1
                     
+                    levelNumber += 1
                     if levelNumber == 10 {
                         runGameOver()
                     }
-                    
                 }
             })
-            let sequence = SKAction.sequence([block, wait])
-    
-        run(SKAction.repeatForever(sequence))
+        let sequence = SKAction.sequence([block, wait])
+    run(SKAction.repeatForever(sequence))
     }
     
     
@@ -339,6 +406,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.6), target: self, selector: #selector(playerMove), userInfo: nil, repeats: true)
         gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(2.5), target: self, selector: #selector(runningBackground1), userInfo: nil, repeats: true)
         gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(2.5), target: self, selector: #selector(runningBackground2), userInfo: nil, repeats: true)
+//        worldNode.addChild(gameTimer)
     }
     
     
@@ -404,7 +472,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func loseLife(){
 
         self.livesNumber -= 1
-        self.livesLabel.text = "Lives: \(self.livesNumber)"
+        
+        if livesNumber == -1 {
+            self.livesLabel.text = "Lives: 0"
+        }else {
+            self.livesLabel.text = "Lives: \(self.livesNumber)"
+        }
 
         let scaleUp = SKAction.scale(to: 1.5, duration: 0.2)
         let scaleDown = SKAction.scale(to: 1, duration: 0.2)
@@ -419,28 +492,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createPauseBTN()
     {
-        pauseBTN = SKSpriteNode(color: SKColor.purple, size: CGSize(width: 100, height: 100))
-        pauseBTN.position = CGPoint(x: self.frame.size.width/1.130, y: self.frame.size.height/1.08)
-        pauseBTN.zPosition = 5
-        self.addChild(pauseBTN)
+        pauseBTN = SKSpriteNode(imageNamed: "pausebutton")
+        pauseBTN.position = CGPoint(x: (self.frame.size.width/8) - 50, y: self.frame.size.height/1.08)
+        pauseBTN.setScale(0.5)
+        pauseBTN.zPosition = 3
+        addChild(pauseBTN)
+        
     }
 
-    func createunPauseBTN()
-    {
-        unpauseBTN = SKSpriteNode(color: SKColor.purple, size: CGSize(width: 100, height: 100))
-        unpauseBTN.position = CGPoint(x: self.frame.size.width/7.8, y: self.frame.size.height/1.08)
-        unpauseBTN.zPosition = 5
-        self.addChild(unpauseBTN)
-        //pauseGame()
-        //scene?.view?.isPaused = true
-    }
-
-    func pauseGame() {
+    @objc func pauseGame() {
         scene?.view?.isPaused = true
-        createunPauseBTN()
     }
-
-
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
@@ -448,24 +510,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             let location = touch.location(in: self)
 
-//            if died == true
-//            {
-//                if restartBTN.contains(location) {
-//                restartScene()
-//                }
-//            }
-
             if pauseBTN.contains(location) {
-//                print(pause)
-                createunPauseBTN()
-//                print("asd")
-                pauseBTN.removeFromParent()
-                pauseGame()
+                gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(pauseGame), userInfo: nil, repeats: false)
+                pauseBTN.isHidden = true
+                unpauseBTN.isHidden = false
+                pauseBackground.isHidden = false
+                
             }
 
             if unpauseBTN.contains(location) {
                 scene?.view?.isPaused = false
-                createPauseBTN()
+                pauseBTN.isHidden = false
+                unpauseBTN.isHidden = true
+                pauseBackground.isHidden = true
+                
             }
         }
     }
@@ -479,6 +537,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         spawnAnswer.physicsBody!.categoryBitMask = PhysicsCategories.Answer
         spawnAnswer.physicsBody!.collisionBitMask = PhysicsCategories.None
         spawnAnswer.physicsBody!.contactTestBitMask = PhysicsCategories.Player
+        spawnAnswer.alpha = 0
         
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 1
@@ -500,6 +559,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         spawnAnswer.physicsBody!.categoryBitMask = PhysicsCategories.Answer
         spawnAnswer.physicsBody!.collisionBitMask = PhysicsCategories.None
         spawnAnswer.physicsBody!.contactTestBitMask = PhysicsCategories.Player
+        spawnAnswer.alpha = 0
         
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 1
@@ -521,6 +581,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         spawnAnswer.physicsBody!.categoryBitMask = PhysicsCategories.Answer
         spawnAnswer.physicsBody!.collisionBitMask = PhysicsCategories.None
         spawnAnswer.physicsBody!.contactTestBitMask = PhysicsCategories.Player
+        spawnAnswer.alpha = 0
         
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 1
@@ -542,6 +603,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         spawnAnswer.physicsBody!.categoryBitMask = PhysicsCategories.Answer
         spawnAnswer.physicsBody!.collisionBitMask = PhysicsCategories.None
         spawnAnswer.physicsBody!.contactTestBitMask = PhysicsCategories.Player
+        spawnAnswer.alpha = 0
         
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 1
