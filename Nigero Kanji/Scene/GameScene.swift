@@ -15,8 +15,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var sakuraFalls:SKEmitterNode!
     var player:SKSpriteNode!
     var pauseBTN = SKSpriteNode()
-//    var unpauseBTN = SKSpriteNode()
-//    let worldNode = SKNode()
     var unpauseBTN = SKLabelNode(fontNamed: "arial")
     var pauseBackground: SKSpriteNode!
     let scoreLabel = SKLabelNode(fontNamed: "arial")
@@ -33,9 +31,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var livesNumber = 3
     var levelNumber = 1
-    var gameTime = 7
+    var spawnTime = 7
     var levelTime = 7
-    var levelTimerValue: Int = 7 {
+    var levelTimerValue: Int = 8 {
         didSet {
             levelTimerLabel.text = "Time left: \(levelTimerValue)"
         }
@@ -97,49 +95,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         runningBackground1()
         runningBackground2()
         
-        model.showKanji()
-        let kanjiBallon1 = model.screenKanji1.karakter
-        let kanjiBallon2 = model.screenKanji2.karakter
-        let kanjiBallon3 = model.screenKanji3.karakter
-        let kanjiBallon4 = model.screenKanji4.karakter
-        let question = model.kanjiArti
-        let answer = model.kanjiKarakter
+//        model.showKanji()
+//        let kanjiBallon1 = model.screenKanji1.karakter
+//        let kanjiBallon2 = model.screenKanji2.karakter
+//        let kanjiBallon3 = model.screenKanji3.karakter
+//        let kanjiBallon4 = model.screenKanji4.karakter
+//        let question = model.kanjiArti
+//        let answer = model.kanjiKarakter
+//
+//        let wait = SKAction.wait(forDuration: 1) //change countdown speed here
+//        let block = SKAction.run({
+//                [unowned self] in
+//
+//                if gameTime > 0 {
+//                   gameTime -= 1
+//                }else {
+//
+//                    if kanjiBallon1 != answer {
+//                        addAlien1()
+//                    }else {
+//                        addAnswer1()
+//                    }
+//                    if kanjiBallon2 != answer{
+//                       addAlien2()
+//                    }else {
+//                        addAnswer2()
+//                    }
+//                    if kanjiBallon3 != answer {
+//                        addAlien3()
+//                    }else {
+//                        addAnswer3()
+//                    }
+//                    if kanjiBallon4 != answer {
+//                        addAlien4()
+//                    }else {
+//                       addAnswer4()
+//                    }
+//                    print("looping 1")
+//                }
+//            })
+//            let sequence = SKAction.sequence([block, wait])
+//        self.run(SKAction.repeatForever(sequence))
+//        self.run(sequence)
         
-        let wait = SKAction.wait(forDuration: 1) //change countdown speed here
-        let block = SKAction.run({
-                [unowned self] in
-
-                if gameTime > 0 {
-                   gameTime -= 1
-                }else {
-                    
-                    if kanjiBallon1 != answer {
-                        addAlien1()
-                    }else {
-                        addAnswer1()
-                    }
-                    if kanjiBallon2 != answer{
-                       addAlien2()
-                    }else {
-                        addAnswer2()
-                    }
-                    if kanjiBallon3 != answer {
-                        addAlien3()
-                    }else {
-                        addAnswer3()
-                    }
-                    if kanjiBallon4 != answer {
-                        addAlien4()
-                    }else {
-                       addAnswer4()
-                    }
-                    
-                }
-            })
-            let sequence = SKAction.sequence([block, wait])
-        run(SKAction.repeatForever(sequence))
         
-        self.questionLabel.text = "Guess Which the Meaning of Kanji is \"\(question)\""
+//        self.questionLabel.text = "Guess Which the Meaning of Kanji is \"\(question)\""
         questionLabel.numberOfLines = 3
         questionLabel.fontSize = 75
         questionLabel.horizontalAlignmentMode = .center
@@ -149,7 +149,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         questionLabel.zPosition = 1
         self.addChild(questionLabel)
         
-        answerLabel.text = answer
+//        answerLabel.text = answer
         answerLabel.fontSize = 100
         answerLabel.fontColor = SKColor.brown
         answerLabel.preferredMaxLayoutWidth = self.frame.size.width/2
@@ -157,28 +157,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         answerLabel.zPosition = 1
        self.addChild(answerLabel)
         
-        kanjiLebel1.text = kanjiBallon1
+//        kanjiLebel1.text = kanjiBallon1
         kanjiLebel1.fontSize = 175
         kanjiLebel1.fontColor = SKColor.brown
         kanjiLebel1.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.25)
         kanjiLebel1.zPosition = 1
         self.addChild(kanjiLebel1)
         
-        kanjiLebel2.text = kanjiBallon2
+//        kanjiLebel2.text = kanjiBallon2
         kanjiLebel2.fontSize = 175
         kanjiLebel2.fontColor = SKColor.brown
         kanjiLebel2.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.25)
         kanjiLebel2.zPosition = 1
         self.addChild(kanjiLebel2)
         
-        kanjiLebel3.text = kanjiBallon3
+//        kanjiLebel3.text = kanjiBallon3
         kanjiLebel3.fontSize = 175
         kanjiLebel3.fontColor = SKColor.brown
         kanjiLebel3.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.25)
         kanjiLebel3.zPosition = 1
         self.addChild(kanjiLebel3)
         
-        kanjiLebel4.text = kanjiBallon4
+//        kanjiLebel4.text = kanjiBallon4
         kanjiLebel4.fontSize = 175
         kanjiLebel4.fontColor = SKColor.brown
         kanjiLebel4.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.25)
@@ -246,7 +246,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerMove()
         spawn()
         timmer()
-//        kanjiLabel()
+        kanjiSpawn()
+        kanjiLabel()
         
         motionManger.accelerometerUpdateInterval = 0.2
         motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
@@ -274,66 +275,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.kanjiLebel4.text = kanjiBallon4
         self.questionLabel.text = "coba tebak kanji mana yang artinya \"\(question)\""
         self.answerLabel.text = answer
-        
-//        print(kanjiBallon1, kanjiBallon2, kanjiBallon3, kanjiBallon4, question, answer)
-        
+           
+    }
+    
+    func kanjiSpawn() {
         let wait = SKAction.wait(forDuration: 1) //change countdown speed here
         let block = SKAction.run({
                 [unowned self] in
 
-                if gameTime > 0 {
-                   gameTime -= 1
+                if spawnTime > 0 {
+                   spawnTime -= 1
                 }else {
-                    
-                    if kanjiBallon1 != answer {
+
+                    if kanjiLebel1.text != answerLabel.text {
                         addAlien1()
                     }else {
                         addAnswer1()
                     }
-                    if kanjiBallon2 != answer{
+                    if kanjiLebel2.text != answerLabel.text{
                        addAlien2()
                     }else {
                         addAnswer2()
                     }
-                    if kanjiBallon3 != answer {
+                    if kanjiLebel3.text != answerLabel.text {
                         addAlien3()
                     }else {
                         addAnswer3()
                     }
-                    if kanjiBallon4 != answer {
+                    if kanjiLebel4.text != answerLabel.text {
                         addAlien4()
                     }else {
                        addAnswer4()
                     }
-                    
+                    spawnTime = levelTime
                 }
             })
             let sequence = SKAction.sequence([block, wait])
         run(SKAction.repeatForever(sequence))
-                    
-//                if kanjiBallon1 != answer {
-//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAlien1), userInfo: nil, repeats: false)
-//                }else {
-//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAnswer1), userInfo: nil, repeats: false)
-//                }
-//                if kanjiBallon2 != answer{
-//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAlien2), userInfo: nil, repeats: false)
-//                }else {
-//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAnswer2), userInfo: nil, repeats: false)
-//                }
-//                if kanjiBallon3 != answer {
-//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAlien3), userInfo: nil, repeats: false)
-//                }else {
-//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAnswer3), userInfo: nil, repeats: false)
-//                }
-//                if kanjiBallon4 != answer {
-//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAlien4), userInfo: nil, repeats: false)
-//                }else {
-//                    gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.1), target: self, selector: #selector(addAnswer4), userInfo: nil, repeats: false)
-//                }
-//                    gameTime = levelTime
-            
-           
     }
     
     @objc func playerMove() {
@@ -387,7 +365,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                    levelTimerValue -= 1
                 }else{
                     levelTimerValue = levelTime
-                    gameTime = levelTime
                     kanjiLabel()
                     
                     levelNumber += 1
