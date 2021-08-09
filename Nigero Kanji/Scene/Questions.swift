@@ -107,6 +107,17 @@ class Question{
 				Khanji(urutan:"43", karakter:"無", arti:"Nothing"),
 				Khanji(urutan:"44", karakter:"口", arti:"Mouth"),
 				Khanji(urutan:"45", karakter:"少", arti:"Little"),
+				Khanji(urutan:"46", karakter:"建", arti:"Build"),
+				Khanji(urutan:"47", karakter:"空", arti:"Sky"),
+				Khanji(urutan:"48", karakter:"急", arti:"Hurry"),
+				Khanji(urutan:"49", karakter:"止", arti:"Stop"),
+				Khanji(urutan:"50", karakter:"送", arti:"Send"),
+				Khanji(urutan:"51", karakter:"切", arti:"Cut"),
+				Khanji(urutan:"52", karakter:"足", arti:"Leg"),
+				Khanji(urutan:"53", karakter:"起", arti:"Wake Up"),
+				Khanji(urutan:"54", karakter:"店", arti:"Store"),
+				Khanji(urutan:"55", karakter:"病", arti:"Sick"),
+				Khanji(urutan:"56", karakter:"楽", arti:"Music"),
     ]
     
     
