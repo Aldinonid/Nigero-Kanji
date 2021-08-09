@@ -26,6 +26,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var answerLabel = SKLabelNode(fontNamed: "theboldfont.ttf")
     var model = Question()
     var dummy:SKSpriteNode!
+    
+    
+    
 //    var kanjiBallon1 = ""
 //    var kanjiBallon2 = ""
 //    var kanjiBallon3 = ""
@@ -227,10 +230,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         levelTimerLabel.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/1.08)
         addChild(levelTimerLabel)
         
-        dummy = SKSpriteNode(imageNamed: "shuttle")
-        addChild(self.dummy)
-        dummy.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/2)
-     //   spawnAnswer.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height + spawnAnswer.size.height)
+
+        
+        
         playerMove()
         spawn()
         timmer()
@@ -435,11 +437,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
                 if levelTimerValue > 0{
                    levelTimerValue -= 1
-                }else{
+                    if levelTimerValue == 1 {
+                            correctPosition()
+        //                    correctposition()
+                                        }
+                }
+            
+           
+                else{
                    levelTimerValue = levelTime
                     kanjiLabel()
-//                    correctposition()
                     levelNumber += 1
+                    enableGyro()
                     
                     if levelNumber == 10 {
                         runGameOver()
@@ -849,10 +858,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var body1 = SKPhysicsBody()
         var body2 = SKPhysicsBody()
+        
 
         if(contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask){
             body1 = contact.bodyA
             body2 = contact.bodyB
+            
         } else{
             body1 = contact.bodyB
             body2 = contact.bodyA
@@ -862,6 +873,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             //if player hits enemy
             if(body1.node != nil){
+                print(player.position.x)
 //                self.spawnExplosion(spawnPosition: body1.node!.position)
                 body2.node?.removeFromParent()
                 let loseALife = SKAction.run(self.loseLife)
@@ -883,6 +895,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             //if bullet hits enemy
             if(body1.node != nil){
+                print(player.position.x)
                 addScore()
                 body2.node?.removeFromParent()
 //                if(body2.node!.position.y > self.size.height){
@@ -944,18 +957,124 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //       let spawnForever = SKAction.repeatForever(spawnSequence)
 //       self.run(spawnForever, withKey: "spawningEnemies")
    }
-    
-    func correctposition(){
+    func correctPosition() {
+            motionManger.accelerometerUpdateInterval = 0.0
+            motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
+            if let accelerometerData = data {
+               let acceleration = accelerometerData.acceleration
+                self.xAcceleration = CGFloat(acceleration.x) * 0.0 + self.xAcceleration * 0.0}}
+
+            motionManger.accelerometerUpdateInterval = 0.0
+            var playerArray = [SKAction]()
+
+        if self.player.position.x > 0 && self.player.position.x < 402.315 {
+                
+            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: player.size.height / 2 + 150), duration: 1))
+                player.run(SKAction.sequence(playerArray))
+                //Kiri 1 312
+                //Kiri 2 492.6314697265625
+                //Kiri 3 668.5711669921875
+                //Kiri 4 850.9088745117188
+            }
         
-        if (self.player.position.x > (self.gameArea.maxX - self.player.size.width)){
-//            var actionArray = [SKAction]()
-//            let animationDuration:TimeInterval = 1
-//            actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: -self.player.size.width ), duration: animationDuration)) // end poin
-            addChild(self.dummy)
-            dummy.position = CGPoint(x: self.frame.size.width/10, y: self.frame.size.height/2)
+        if self.player.position.x > 402.316 && self.player.position.x < 580.6  {
+                print(player.position.x)
+                playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: player.size.height / 2 + 150), duration: 1))
+                player.run(SKAction.sequence(playerArray))
+
+            }
+        if self.player.position.x > 580.601 && self.player.position.x < 759.739  {
+                print(player.position.x)
+                playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: player.size.height / 2 + 150), duration: 1))
+                player.run(SKAction.sequence(playerArray))
+
+            }
+
+        if self.player.position.x > 759.740 && self.player.position.x < self.frame.size.width  {
+                    print(player.position.x)
+                    playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: player.size.height / 2 + 150), duration: 1))
+                    player.run(SKAction.sequence(playerArray))
+                }
+        
         }
+    
+    func enableGyro () {
+        motionManger.accelerometerUpdateInterval = 0.2
+        motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
+            if let accelerometerData = data {
+                let acceleration = accelerometerData.acceleration
+                self.xAcceleration = CGFloat(acceleration.x) * 0.75 + self.xAcceleration * 0.25
+            }
+        }
+        
+    }
+    
+    func correctposition () -> CGFloat{
+        
+        
+        var actionArray = [SKAction]()
+        var cordinateArr : [CGFloat] = [
+            player.frame.size.width / 3.75,
+            player.frame.size.width / 2.375,
+            player.frame.size.width / 1.75,
+            player.frame.size.width / 1.375
+        ]
+        cordinateArr = cordinateArr.sorted()
+        var i = cordinateArr.count-1
+        if player.position.x > cordinateArr.last!{
+            return cordinateArr.last!
+        }else{
+            while i >= 0{
+                if i == 0{
+                    return cordinateArr.first!
+                }else{
+                    let center = (cordinateArr[i]+cordinateArr[i-1])/2
+                    self.addChild(dummy)
+                    //dummy.setScale(10)
+                    //dummy.position = CGPoint(x: player.frame.size.width / 3.75, y: player.size.height / 2 + 150)
+                    player.position = CGPoint(x: player.position.x, y: player.size.height / 2 + 150)
+                    actionArray.append(SKAction.move(to: CGPoint(x: center, y: player.size.height / 2 + 150), duration: 1))
+                    player.run(SKAction.sequence(actionArray))
+                    if player.position.x > center{
+                        return cordinateArr[i]
+                    }else{
+                        i -= 1
+                    }
+                }
+            }
+
+        }
+        return cordinateArr.first!
+
+        
+        
+//        dummy = SKSpriteNode(imageNamed: "alien")
+//
+//        if (player.position.x < self.frame.size.width / 3.0625){
+//
+//            self.addChild(dummy)
+//            dummy.position = CGPoint(x: self.frame.size.width / 3.75 , y: player.size.height / 2 + 150 )
+//            player.position = CGPoint(x: player.position.x , y: player.size.height / 2 + 150)
+//            actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width / 3.75, y: player.size.height / 2 + 150), duration: 3))
+//            player.run(SKAction.sequence(actionArray))
+//
+//
+//
+//        if (player.position.x > self.frame.size.width / 1.5625){
+//
+//            self.addChild(dummy)
+//            dummy.position = CGPoint(x: self.frame.size.width / 1.375 , y: player.size.height / 2 + 150 )
+//            player.position = CGPoint(x: player.position.x , y: player.size.height / 2 + 150)
+//            actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width / 1.375, y: player.size.height / 2 + 150), duration: 3))
+//            player.run(SKAction.sequence(actionArray))
+//
+//        }
+//
+//
+//        }
     }
 
+    
     
     override func didSimulatePhysics() {
         
@@ -974,4 +1093,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
+
+
+
+
+    
 }
+//playerCoordinate(userPos: 2)
+
