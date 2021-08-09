@@ -136,32 +136,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //       self.addChild(answerLabel)
         
 //        kanjiLebel1.text = kanjiBallon1
-        kanjiLebel1.fontSize = 175
-        kanjiLebel1.fontColor = SKColor.brown
-        kanjiLebel1.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.25)
-        kanjiLebel1.zPosition = 1
+        kanjiLebel1.fontSize = 75
+        kanjiLebel1.fontColor = SKColor.white
+        kanjiLebel1.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.5)
+        kanjiLebel1.zPosition = 5
         self.addChild(kanjiLebel1)
+			kanjiLebel1.isHidden = true
         
 //        kanjiLebel2.text = kanjiBallon2
-        kanjiLebel2.fontSize = 175
-        kanjiLebel2.fontColor = SKColor.brown
-        kanjiLebel2.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.25)
-        kanjiLebel2.zPosition = 1
+        kanjiLebel2.fontSize = 75
+        kanjiLebel2.fontColor = SKColor.white
+			kanjiLebel2.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.5)
+        kanjiLebel2.zPosition = 5
         self.addChild(kanjiLebel2)
+			kanjiLebel2.isHidden = true
         
 //        kanjiLebel3.text = kanjiBallon3
-        kanjiLebel3.fontSize = 175
-        kanjiLebel3.fontColor = SKColor.brown
-        kanjiLebel3.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.25)
-        kanjiLebel3.zPosition = 1
+        kanjiLebel3.fontSize = 75
+        kanjiLebel3.fontColor = SKColor.white
+			kanjiLebel3.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.5)
+        kanjiLebel3.zPosition = 5
         self.addChild(kanjiLebel3)
+			kanjiLebel3.isHidden = true
         
 //        kanjiLebel4.text = kanjiBallon4
-        kanjiLebel4.fontSize = 175
-        kanjiLebel4.fontColor = SKColor.brown
-        kanjiLebel4.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.25)
-        kanjiLebel4.zPosition = 1
+        kanjiLebel4.fontSize = 75
+        kanjiLebel4.fontColor = SKColor.white
+			kanjiLebel4.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.5)
+        kanjiLebel4.zPosition = 5
         self.addChild(kanjiLebel4)
+			kanjiLebel4.isHidden = true
         
         // player
         player = SKSpriteNode(imageNamed: "ninja1")
@@ -177,7 +181,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         self.physicsWorld.contactDelegate = self
         
-        self.scoreLabel.text = "Score: \(gameScore)/10"
+        self.scoreLabel.text = "Score: \(gameScore)"
         self.scoreLabel.fontSize = 100
         self.scoreLabel.fontColor = SKColor.white
         self.scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
@@ -226,22 +230,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         rectangleScore.zPosition = 3
         addChild(rectangleScore)
 			
-			pauseLabel.text = "Paused"
-			pauseLabel.fontSize = 120
-			pauseLabel.color = SKColor.white
-			pauseLabel.position = CGPoint(x: (self.frame.size.width / 2), y: (self.frame.size.width/2) + 910)
-			pauseLabel.zPosition = 5
-			addChild(pauseLabel)
-			pauseLabel.isHidden = true
-			
-			
-			pauseDescriptionLabel.fontSize = 65
-			pauseDescriptionLabel.numberOfLines = 2
-			pauseDescriptionLabel.color = SKColor.white
-			pauseDescriptionLabel.position = CGPoint(x: (self.frame.size.width / 2), y: (self.frame.size.width/2) + 650)
-			pauseDescriptionLabel.zPosition = 5
-			addChild(pauseDescriptionLabel)
-			pauseDescriptionLabel.isHidden = true
+				pauseLabel.text = "Paused"
+				pauseLabel.fontSize = 120
+				pauseLabel.color = SKColor.white
+				pauseLabel.position = CGPoint(x: (self.frame.size.width / 2), y: (self.frame.size.width/2) + 910)
+				pauseLabel.zPosition = 10
+				addChild(pauseLabel)
+				pauseLabel.isHidden = true
+				
+				
+				pauseDescriptionLabel.fontSize = 65
+				pauseDescriptionLabel.numberOfLines = 2
+				pauseDescriptionLabel.color = SKColor.white
+				pauseDescriptionLabel.position = CGPoint(x: (self.frame.size.width / 2), y: (self.frame.size.width/2) + 650)
+				pauseDescriptionLabel.zPosition = 10
+				addChild(pauseDescriptionLabel)
+				pauseDescriptionLabel.isHidden = true
         
         unpauseBTN.text = "Resume"
         unpauseBTN.color = UIColor.white
@@ -445,35 +449,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         spawnWall1()
                         kanjiSpawnA()
                     }
+									
+									if levelTimerValue == 5 {
+										kanjiLebel1.isHidden = false
+										kanjiLebel2.isHidden = false
+										kanjiLebel3.isHidden = false
+										kanjiLebel4.isHidden = false
+										
+									}
                     
                     if levelTimerValue == 1 {
-//                        var actionArrayAn1 = [SKAction]()
-//                        actionArrayAn1.append(SKAction.removeFromParent())
-//                        spawnAnswer.run(SKAction.sequence(actionArrayAn1))
-//                        var actionArrayAn2 = [SKAction]()
-//                        actionArrayAn2.append(SKAction.removeFromParent())
-//                        spawnAnswer.run(SKAction.sequence(actionArrayAn2))
-//                        var actionArrayAn3 = [SKAction]()
-//                        actionArrayAn3.append(SKAction.removeFromParent())
-//                        spawnAnswer.run(SKAction.sequence(actionArrayAn3))
-//                        var actionArrayAn4 = [SKAction]()
-//                        actionArrayAn4.append(SKAction.removeFromParent())
-//                        spawnAnswer.run(SKAction.sequence(actionArrayAn4))
-//
-//                        var actionArraya1 = [SKAction]()
-//                        actionArraya1.append(SKAction.removeFromParent())
-//                        var actionArraya2 = [SKAction]()
-//                        actionArraya2.append(SKAction.removeFromParent())
-//                        var actionArraya3 = [SKAction]()
-//                        actionArraya3.append(SKAction.removeFromParent())
-//                        var actionArraya4 = [SKAction]()
-//                        actionArraya4.append(SKAction.removeFromParent())
-                        
+											
+											kanjiLebel1.isHidden = true
+											kanjiLebel2.isHidden = true
+											kanjiLebel3.isHidden = true
+											kanjiLebel4.isHidden = true
                         
                         var wallArray = [SKAction]()
                         wallArray.append(SKAction.removeFromParent())
                         questionLabel.isHidden = true
-											questionLabel2.isHidden = true
+												questionLabel2.isHidden = true
                         questionBox.isHidden = true
                         levelTimerLabel.isHidden = true
                         correctPosition()
@@ -485,6 +480,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         kanjiLabel()
                         enableGyro()
                         questionLabel.isHidden = false
+												questionLabel2.isHidden = false
                         questionBox.isHidden = false
                         levelTimerLabel.isHidden = false
                         levelNumber += 1
@@ -629,7 +625,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 levelTimerLabel.isHidden = true
 							pauseLabel.isHidden = false
 							pauseDescriptionLabel.isHidden = false
-                
+							kanjiLebel1.isHidden = true
+							kanjiLebel2.isHidden = true
+							kanjiLebel3.isHidden = true
+							kanjiLebel4.isHidden = true
+							
             }
 
             if unpauseBTN.contains(location) {
@@ -644,6 +644,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 levelTimerLabel.isHidden = false
 							pauseLabel.isHidden = true
 							pauseDescriptionLabel.isHidden = true
+							kanjiLebel1.isHidden = false
+							kanjiLebel2.isHidden = false
+							kanjiLebel3.isHidden = false
+							kanjiLebel4.isHidden = false
                 
             }
             
@@ -697,7 +701,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 1
         var actionArray = [SKAction]()
         spawnAnswer.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height + spawnAnswer.size.height)
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.5), duration: animationDuration))
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 4))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
@@ -740,7 +744,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 1
         var actionArray = [SKAction]()
         spawnAnswer.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height + spawnAnswer.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.5), duration: animationDuration))
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 4))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
@@ -784,7 +788,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 1
         var actionArray = [SKAction]()
         spawnAnswer.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height + spawnAnswer.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.5), duration: animationDuration))
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 4))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
@@ -827,7 +831,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 1
         var actionArray = [SKAction]()
         spawnAnswer.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height + spawnAnswer.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.5), duration: animationDuration)) //
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.42), duration: animationDuration)) //
         actionArray.append(SKAction.wait(forDuration: 4))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
@@ -869,7 +873,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 1
         var actionArray = [SKAction]()
         alien.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height + alien.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.5), duration: animationDuration)) // end
+			actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.42), duration: animationDuration)) // end
         actionArray.append(SKAction.wait(forDuration: 4))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
@@ -912,7 +916,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 1
         var actionArray = [SKAction]()
         alien.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height + alien.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.5), duration: animationDuration))
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 4))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
@@ -955,7 +959,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 1
         var actionArray = [SKAction]()
         alien.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height + alien.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.5), duration: animationDuration))
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.42), duration: animationDuration))
         
         actionArray.append(SKAction.wait(forDuration: 4))
         actionArray.append(SKAction.removeFromParent())
@@ -999,7 +1003,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 1
         var actionArray = [SKAction]()
         alien.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height + alien.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.5), duration: animationDuration))
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 4))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
