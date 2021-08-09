@@ -242,12 +242,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseBackground.setScale(2.5)
         addChild(pauseBackground)
         pauseBackground.isHidden = true
+
         
         playerMove()
         spawn()
         timmer()
+      
         kanjiSpawn()
         kanjiLabel()
+
         
         motionManger.accelerometerUpdateInterval = 0.2
         motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
@@ -372,7 +375,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     levelTimerValue = levelTime
                     kanjiLabel()
                     enableGyro()
-                    
                     levelNumber += 1
                     if levelNumber == 10 {
                         runGameOver()
@@ -389,7 +391,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.6), target: self, selector: #selector(playerMove), userInfo: nil, repeats: true)
         gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(2.5), target: self, selector: #selector(runningBackground1), userInfo: nil, repeats: true)
         gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(2.5), target: self, selector: #selector(runningBackground2), userInfo: nil, repeats: true)
-//        worldNode.addChild(gameTimer)
+      
     }
     
     
@@ -546,53 +548,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
     }
-    
-//    func correctposition() -> CGFloat{
-//
-//        motionManger.accelerometerUpdateInterval = 0.0
-//        motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
-//        if let accelerometerData = data {
-//           let acceleration = accelerometerData.acceleration
-//            self.xAcceleration = CGFloat(acceleration.x) * 0.0 + self.xAcceleration * 0.0}}
-//
-//            var actionArray = [SKAction]()
-//            var cordinateArr : [CGFloat] = [
-//                player.frame.size.width / 3.75,
-//                player.frame.size.width / 2.375,
-//                player.frame.size.width / 1.75,
-//                player.frame.size.width / 1.375
-//            ]
-//            cordinateArr = cordinateArr.sorted()
-//            print(cordinateArr)
-//            var i = cordinateArr.count-1
-//            if player.position.x > cordinateArr.last!{
-//                return cordinateArr.last!
-//            }else{
-//                while i >= 0{
-//                    if i == 0{
-//                        return cordinateArr.first!
-//                    }else {
-//                        let center = (cordinateArr[i]+cordinateArr[i-1])/2
-////                        self.addChild(dummy)
-//                        //dummy.setScale(10)
-//                        //dummy.position = CGPoint(x: player.frame.size.width / 3.75, y: player.size.height / 2 + 150)
-//                        player.position = CGPoint(x: player.position.x, y: player.size.height / 2 + 150)
-//                        actionArray.append(SKAction.move(to: CGPoint(x: center, y: player.size.height / 2 + 150), duration: 1))
-//                        player.run(SKAction.sequence(actionArray))
-//                        if player.position.x > center{
-//                            print(cordinateArr[i])
-//                            return cordinateArr[i]
-//
-//                        }else{
-//                            i -= 1
-//                        }
-//                    }
-//                }
-//
-//            }
-//            return cordinateArr.first!
-//
-//    }
+   
     
     func enableGyro() {
         motionManger.accelerometerUpdateInterval = 0.2
@@ -607,6 +563,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func addAnswer1 () {
 
         let spawnAnswer = SKSpriteNode(imageNamed: "alien")
+
         spawnAnswer.physicsBody = SKPhysicsBody(rectangleOf: spawnAnswer.size)
         spawnAnswer.physicsBody?.isDynamic = true
         spawnAnswer.setScale(5)
@@ -651,6 +608,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func addAnswer3 () {
 
         let spawnAnswer = SKSpriteNode(imageNamed: "alien")
+
         spawnAnswer.physicsBody = SKPhysicsBody(rectangleOf: spawnAnswer.size)
         spawnAnswer.physicsBody?.isDynamic = true
         spawnAnswer.setScale(5)
@@ -673,6 +631,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func addAnswer4 () {
         
         let spawnAnswer = SKSpriteNode(imageNamed: "alien")
+
         spawnAnswer.physicsBody = SKPhysicsBody(rectangleOf: spawnAnswer.size)
         spawnAnswer.physicsBody?.isDynamic = true
         spawnAnswer.setScale(5)
@@ -780,10 +739,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var body1 = SKPhysicsBody()
         var body2 = SKPhysicsBody()
+        
 
         if(contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask){
             body1 = contact.bodyA
             body2 = contact.bodyB
+            
         } else{
             body1 = contact.bodyB
             body2 = contact.bodyA
@@ -793,6 +754,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             //if player hits enemy
             if(body1.node != nil){
+
                 body2.node?.removeFromParent()
                 let loseALife = SKAction.run(self.loseLife)
                 let enemySequence = SKAction.sequence([loseALife])
@@ -804,6 +766,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             //if bullet hits enemy
             if(body1.node != nil){
+                print(player.position.x)
                 addScore()
                 body2.node?.removeFromParent()
 
@@ -823,9 +786,124 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func startNewLevel(){
+       
+//       self.levelNumber += 1
+//
+//       if(self.action(forKey: "spawningEnemies") != nil){
+//           self.removeAction(forKey: "spawningEnemies")
+//       }
+//
+////       var levelDuration = TimeInterval()
+//
+//
+//       switch levelNumber {
+//       case 1:
+//       case 2: var kanjiStage2 = [kanjiLevel1, kanjiLevel2!, kanjiLevel3!, kanjiLevel4!] as [Any]
+//
+//       default:
+////           levelDuration = 0.5
+//           print("cannot find level info")
+//       }
+//
+//       let spawn = SKAction.run(self.spawnAlien)
+////       let waitToSpawn = SKAction.wait(forDuration: 2)
+//       let spawnSequence = SKAction.sequence([spawn])
+//       let spawnForever = SKAction.repeatForever(spawnSequence)
+//       self.run(spawnForever, withKey: "spawningEnemies")
+   }
+    func correctPosition() {
+            motionManger.accelerometerUpdateInterval = 0.0
+            motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
+            if let accelerometerData = data {
+               let acceleration = accelerometerData.acceleration
+                self.xAcceleration = CGFloat(acceleration.x) * 0.0 + self.xAcceleration * 0.0}}
+
+            motionManger.accelerometerUpdateInterval = 0.0
+            var playerArray = [SKAction]()
+
+        if self.player.position.x > 0 && self.player.position.x < 402.315 {
+                
+            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: player.size.height / 2 + 150), duration: 1))
+                player.run(SKAction.sequence(playerArray))
+                //Kiri 1 312
+                //Kiri 2 492.6314697265625
+                //Kiri 3 668.5711669921875
+                //Kiri 4 850.9088745117188
+            }
+        
+        if self.player.position.x > 402.316 && self.player.position.x < 580.6  {
+                print(player.position.x)
+                playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: player.size.height / 2 + 150), duration: 1))
+                player.run(SKAction.sequence(playerArray))
+
+            }
+        if self.player.position.x > 580.601 && self.player.position.x < 759.739  {
+                print(player.position.x)
+                playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: player.size.height / 2 + 150), duration: 1))
+                player.run(SKAction.sequence(playerArray))
+
+            }
+
+        if self.player.position.x > 759.740 && self.player.position.x < self.frame.size.width  {
+                    print(player.position.x)
+                    playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: player.size.height / 2 + 150), duration: 1))
+                    player.run(SKAction.sequence(playerArray))
+                }
+        
+        }
+    
+    func enableGyro () {
+        motionManger.accelerometerUpdateInterval = 0.2
+        motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
+            if let accelerometerData = data {
+                let acceleration = accelerometerData.acceleration
+                self.xAcceleration = CGFloat(acceleration.x) * 0.75 + self.xAcceleration * 0.25
+            }
+        }
+        
+    }
+    
+    func correctposition () -> CGFloat{
+        
+        
+        var actionArray = [SKAction]()
+        var cordinateArr : [CGFloat] = [
+            player.frame.size.width / 3.75,
+            player.frame.size.width / 2.375,
+            player.frame.size.width / 1.75,
+            player.frame.size.width / 1.375
+        ]
+        cordinateArr = cordinateArr.sorted()
+        var i = cordinateArr.count-1
+        if player.position.x > cordinateArr.last!{
+            return cordinateArr.last!
+        }else{
+            while i >= 0{
+                if i == 0{
+                    return cordinateArr.first!
+                }else{
+                    let center = (cordinateArr[i]+cordinateArr[i-1])/2
+                    self.addChild(dummy)
+                    //dummy.setScale(10)
+                    //dummy.position = CGPoint(x: player.frame.size.width / 3.75, y: player.size.height / 2 + 150)
+                    player.position = CGPoint(x: player.position.x, y: player.size.height / 2 + 150)
+                    actionArray.append(SKAction.move(to: CGPoint(x: center, y: player.size.height / 2 + 150), duration: 1))
+                    player.run(SKAction.sequence(actionArray))
+                    if player.position.x > center{
+                        return cordinateArr[i]
+                    }else{
+                        i -= 1
+                    }
+                }
+            }
+
+        }
+        return cordinateArr.first!
+
     override func didSimulatePhysics() {
         
-        player.position.x += xAcceleration * 50
+        player.position.x += xAcceleration * 100
         
         if (self.player.position.x > (self.gameArea.maxX - self.player.size.width)){
             self.player.position.x = (self.gameArea.maxX - self.player.size.width)
@@ -840,4 +918,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
+
+
+
+
+    
 }
+//playerCoordinate(userPos: 2)
+
