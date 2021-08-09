@@ -30,8 +30,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let kanjiLebel3 = SKLabelNode(fontNamed: "arial")
     let kanjiLebel4 = SKLabelNode(fontNamed: "arial")
     let countDownLabel = SKLabelNode(fontNamed: "arial")
-    var levelTimerLabel = SKLabelNode(fontNamed: "arial")
+    var levelTimerLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
     var answerLabel = SKLabelNode(fontNamed: "arial")
+		var questionLabel2 = SKLabelNode(fontNamed: "arial")
+		var pauseLabel = SKLabelNode(fontNamed: "arial")
+		var pauseDescriptionLabel = SKLabelNode(fontNamed: "arial")
     var model = Question()
     
     var livesNumber = 3
@@ -100,17 +103,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         runningBackground1()
         runningBackground2()
         
-        
-//        self.questionLabel.text = "Guess Which the Meaning of Kanji is \"\(question)\""
+			
         questionLabel.numberOfLines = 3
         questionLabel.fontSize = 75
         questionLabel.horizontalAlignmentMode = .center
         questionLabel.fontColor = SKColor.white
         questionLabel.preferredMaxLayoutWidth = self.frame.size.width/1.25
-        questionLabel.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) - 180)
+        questionLabel.position = CGPoint(x: (self.size.width/2) + 20, y: (self.size.height/2) - 180)
         questionLabel.zPosition = 3
         questionLabel.isHidden = false
         self.addChild(questionLabel)
+			
+				questionLabel2.numberOfLines = 1
+				questionLabel2.horizontalAlignmentMode = .center
+				questionLabel2.fontSize = 180
+				questionLabel2.preferredMaxLayoutWidth = self.frame.size.width/1.25
+				questionLabel2.zPosition = 4
+				questionLabel2.fontColor = SKColor.white
+				questionLabel2.position = CGPoint(x: (self.size.width/2) + 20, y: (self.size.height/2) - 340)
+				questionLabel2.isHidden = false
+				self.addChild(questionLabel2)
         
 //        answerLabel.text = answer
         answerLabel.fontSize = 100
@@ -118,7 +130,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         answerLabel.preferredMaxLayoutWidth = self.frame.size.width/2
         answerLabel.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) - 300)
         answerLabel.zPosition = 1
-       self.addChild(answerLabel)
+//       self.addChild(answerLabel)
         
 //        kanjiLebel1.text = kanjiBallon1
         kanjiLebel1.fontSize = 175
@@ -166,7 +178,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.scoreLabel.fontSize = 100
         self.scoreLabel.fontColor = SKColor.white
         self.scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        self.scoreLabel.position = CGPoint(x: (self.frame.size.width/2) + 175, y: self.frame.size.height/1.07)
+        self.scoreLabel.position = CGPoint(x: (self.frame.size.width/2) + 130, y: self.frame.size.height/1.109)
         self.scoreLabel.zPosition = 5
         self.addChild(self.scoreLabel)
         
@@ -174,43 +186,59 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.livesLabel.fontSize = 100
         self.livesLabel.fontColor = SKColor.white
         self.livesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
-        self.livesLabel.position = CGPoint(x: (self.frame.size.width/2) - 100, y: self.frame.size.height/1.07)
+        self.livesLabel.position = CGPoint(x: (self.frame.size.width/2) - 50, y: self.frame.size.height/1.112)
         self.livesLabel.zPosition = 5
         self.addChild(self.livesLabel)
         
         // Timer
-        levelTimerLabel.fontColor = SKColor.cyan
-        levelTimerLabel.fontSize = 120
-        levelTimerLabel.position = CGPoint(x: (self.frame.size.width/2) - 425, y: (self.frame.size.height/2) + 80 )
+				levelTimerLabel.fontColor = SKColor(red: 50/255, green: 157/255, blue: 168/255, alpha: 1)
+        levelTimerLabel.fontSize = 180
+        levelTimerLabel.position = CGPoint(x: (self.frame.size.width/2) - 420, y: (self.frame.size.height/2) - 160 )
         levelTimerLabel.zPosition = 3
         addChild(levelTimerLabel)
         levelTimerLabel.isHidden = false
 
         pauseBTN = SKSpriteNode(imageNamed: "pausebutton")
-        pauseBTN.position = CGPoint(x: (self.frame.size.width/8) - 50, y: self.frame.size.height/1.07)
+        pauseBTN.position = CGPoint(x: (self.frame.size.width/8) - 20, y: self.frame.size.height/1.093)
         pauseBTN.setScale(1)
         pauseBTN.zPosition = 3
         addChild(pauseBTN)
         pauseBTN.isHidden = false
         
         rectangle = SKSpriteNode(imageNamed: "Rectangle")
-        rectangle.position = CGPoint(x: (self.frame.size.width/2) - 200, y: self.frame.size.height/1.07)
+        rectangle.position = CGPoint(x: (self.frame.size.width/2) - 150, y: self.frame.size.height/1.10)
         rectangle.setScale(3.5)
         rectangle.zPosition = 3
         addChild(rectangle)
-//        rectangle.isHidden = false
         
         lifeIcon = SKSpriteNode(imageNamed: "LifeIcon")
-        lifeIcon.position = CGPoint(x: (self.frame.size.width/2) - 300, y: self.frame.size.height/1.06)
+        lifeIcon.position = CGPoint(x: (self.frame.size.width/2) - 230, y: self.frame.size.height/1.093)
         lifeIcon.setScale(3.5)
         lifeIcon.zPosition = 4
         addChild(lifeIcon)
         
         rectangleScore = SKSpriteNode(imageNamed: "RectangleScore")
-        rectangleScore.position = CGPoint(x: (self.frame.size.width/2) + 350, y: self.frame.size.height/1.07)
+        rectangleScore.position = CGPoint(x: (self.frame.size.width/2) + 320, y: self.frame.size.height/1.0992)
         rectangleScore.setScale(3.5)
         rectangleScore.zPosition = 3
         addChild(rectangleScore)
+			
+			pauseLabel.text = "Paused"
+			pauseLabel.fontSize = 120
+			pauseLabel.color = SKColor.white
+			pauseLabel.position = CGPoint(x: (self.frame.size.width / 2), y: (self.frame.size.width/2) + 910)
+			pauseLabel.zPosition = 5
+			addChild(pauseLabel)
+			pauseLabel.isHidden = true
+			
+			
+			pauseDescriptionLabel.fontSize = 65
+			pauseDescriptionLabel.numberOfLines = 2
+			pauseDescriptionLabel.color = SKColor.white
+			pauseDescriptionLabel.position = CGPoint(x: (self.frame.size.width / 2), y: (self.frame.size.width/2) + 650)
+			pauseDescriptionLabel.zPosition = 5
+			addChild(pauseDescriptionLabel)
+			pauseDescriptionLabel.isHidden = true
         
         unpauseBTN.text = "Resume"
         unpauseBTN.color = UIColor.white
@@ -236,7 +264,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseBackground.isHidden = true
         
         questionBox = SKSpriteNode(imageNamed: "questionBox")
-        questionBox.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        questionBox.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) - 200 )
         questionBox.zPosition = 2
         questionBox.setScale(3.5)
         addChild(questionBox)
@@ -271,11 +299,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let answer = model.kanjiKarakter
         
         scoreLabel.text = "Score: \(gameScore)"
+				self.pauseDescriptionLabel.text = "Currently you have answered \n\(gameScore) questions correctly"
         self.kanjiLebel1.text = kanjiBallon1
         self.kanjiLebel2.text = kanjiBallon2
         self.kanjiLebel3.text = kanjiBallon3
         self.kanjiLebel4.text = kanjiBallon4
-        self.questionLabel.text = "kanji of \"\(question)\""
+        self.questionLabel.text = "kanji of"
+				self.questionLabel2.text = "\(question)"
         self.answerLabel.text = answer
            
     }
@@ -375,8 +405,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         spawnWall1()
                     }
                     
-                    if levelTimerValue == 1 {
+                    if levelTimerValue == 0 {
                         questionLabel.isHidden = true
+											questionLabel2.isHidden = true
                         questionBox.isHidden = true
                         levelTimerLabel.isHidden = true
                         correctPosition()
@@ -387,6 +418,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     kanjiLabel()
                     enableGyro()
                     questionLabel.isHidden = false
+									questionLabel2.isHidden = false
                     questionBox.isHidden = false
                     levelTimerLabel.isHidden = false
                     levelNumber += 1
@@ -526,8 +558,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pauseBackground.isHidden = false
                 mapBTN.isHidden = false
                 questionLabel.isHidden = true
+								questionLabel2.isHidden = true
                 questionBox.isHidden = true
                 levelTimerLabel.isHidden = true
+							pauseLabel.isHidden = false
+							pauseDescriptionLabel.isHidden = false
                 
             }
 
@@ -538,8 +573,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pauseBackground.isHidden = true
                 mapBTN.isHidden = true
                 questionLabel.isHidden = false
+								questionLabel2.isHidden = false
                 questionBox.isHidden = false
                 levelTimerLabel.isHidden = false
+							pauseLabel.isHidden = true
+							pauseDescriptionLabel.isHidden = true
                 
             }
             
@@ -754,6 +792,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         alien.run(SKAction.sequence(actionArray))
         
     }
+	
+	
+	
+	
+	
+	
+	
+	
     
     
     func didBegin(_ contact: SKPhysicsContact) {
