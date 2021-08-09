@@ -16,7 +16,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var player:SKSpriteNode!
     var pauseBTN = SKSpriteNode()
     var unpauseBTN = SKLabelNode(fontNamed: "arial")
+    var mapBTN = SKLabelNode(fontNamed: "arial")
     var pauseBackground: SKSpriteNode!
+    var questionBox: SKSpriteNode!
+    var rectangle: SKSpriteNode!
+    var lifeIcon: SKSpriteNode!
+    var rectangleScore: SKSpriteNode!
     let scoreLabel = SKLabelNode(fontNamed: "arial")
     let livesLabel = SKLabelNode(fontNamed: "arial")
     let questionLabel = SKLabelNode(fontNamed: "arial")
@@ -35,7 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var levelTime = 7
     var levelTimerValue: Int = 8 {
         didSet {
-            levelTimerLabel.text = "Time left: \(levelTimerValue)"
+            levelTimerLabel.text = "\(levelTimerValue)"
         }
     }
     
@@ -95,58 +100,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         runningBackground1()
         runningBackground2()
         
-//        model.showKanji()
-//        let kanjiBallon1 = model.screenKanji1.karakter
-//        let kanjiBallon2 = model.screenKanji2.karakter
-//        let kanjiBallon3 = model.screenKanji3.karakter
-//        let kanjiBallon4 = model.screenKanji4.karakter
-//        let question = model.kanjiArti
-//        let answer = model.kanjiKarakter
-//
-//        let wait = SKAction.wait(forDuration: 1) //change countdown speed here
-//        let block = SKAction.run({
-//                [unowned self] in
-//
-//                if gameTime > 0 {
-//                   gameTime -= 1
-//                }else {
-//
-//                    if kanjiBallon1 != answer {
-//                        addAlien1()
-//                    }else {
-//                        addAnswer1()
-//                    }
-//                    if kanjiBallon2 != answer{
-//                       addAlien2()
-//                    }else {
-//                        addAnswer2()
-//                    }
-//                    if kanjiBallon3 != answer {
-//                        addAlien3()
-//                    }else {
-//                        addAnswer3()
-//                    }
-//                    if kanjiBallon4 != answer {
-//                        addAlien4()
-//                    }else {
-//                       addAnswer4()
-//                    }
-//                    print("looping 1")
-//                }
-//            })
-//            let sequence = SKAction.sequence([block, wait])
-//        self.run(SKAction.repeatForever(sequence))
-//        self.run(sequence)
-        
         
 //        self.questionLabel.text = "Guess Which the Meaning of Kanji is \"\(question)\""
         questionLabel.numberOfLines = 3
         questionLabel.fontSize = 75
         questionLabel.horizontalAlignmentMode = .center
-        questionLabel.fontColor = SKColor.brown
-        questionLabel.preferredMaxLayoutWidth = self.frame.size.width/2
-        questionLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        questionLabel.zPosition = 1
+        questionLabel.fontColor = SKColor.white
+        questionLabel.preferredMaxLayoutWidth = self.frame.size.width/1.25
+        questionLabel.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) - 180)
+        questionLabel.zPosition = 3
+        questionLabel.isHidden = false
         self.addChild(questionLabel)
         
 //        answerLabel.text = answer
@@ -199,49 +162,85 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         self.physicsWorld.contactDelegate = self
         
-        self.scoreLabel.text = "Score: 0"
-        self.scoreLabel.fontSize = 70
-        self.scoreLabel.fontColor = SKColor.brown
+        self.scoreLabel.text = "Score: \(gameScore)/10"
+        self.scoreLabel.fontSize = 100
+        self.scoreLabel.fontColor = SKColor.white
         self.scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        self.scoreLabel.position = CGPoint(x: self.frame.size.width/12, y: self.frame.size.height/1.08)
-        self.scoreLabel.zPosition = 100
+        self.scoreLabel.position = CGPoint(x: (self.frame.size.width/2) + 175, y: self.frame.size.height/1.07)
+        self.scoreLabel.zPosition = 5
         self.addChild(self.scoreLabel)
         
-        self.livesLabel.text = "Lives: 3"
-        self.livesLabel.fontSize = 70
-        self.livesLabel.fontColor = SKColor.brown
+        self.livesLabel.text = "3"
+        self.livesLabel.fontSize = 100
+        self.livesLabel.fontColor = SKColor.white
         self.livesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
-        self.livesLabel.position = CGPoint(x: self.frame.size.width/1.05, y: self.frame.size.height/1.08)
-        self.livesLabel.zPosition = 100
+        self.livesLabel.position = CGPoint(x: (self.frame.size.width/2) - 100, y: self.frame.size.height/1.07)
+        self.livesLabel.zPosition = 5
         self.addChild(self.livesLabel)
         
         // Timer
-        levelTimerLabel.fontColor = SKColor.brown
-        levelTimerLabel.fontSize = 70
-        levelTimerLabel.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/1.08)
+        levelTimerLabel.fontColor = SKColor.cyan
+        levelTimerLabel.fontSize = 120
+        levelTimerLabel.position = CGPoint(x: (self.frame.size.width/2) - 425, y: (self.frame.size.height/2) + 80 )
+        levelTimerLabel.zPosition = 3
         addChild(levelTimerLabel)
+        levelTimerLabel.isHidden = false
 
         pauseBTN = SKSpriteNode(imageNamed: "pausebutton")
-        pauseBTN.position = CGPoint(x: (self.frame.size.width/8) - 50, y: self.frame.size.height/1.08)
-        pauseBTN.setScale(3)
+        pauseBTN.position = CGPoint(x: (self.frame.size.width/8) - 50, y: self.frame.size.height/1.07)
+        pauseBTN.setScale(1)
         pauseBTN.zPosition = 3
         addChild(pauseBTN)
         pauseBTN.isHidden = false
         
+        rectangle = SKSpriteNode(imageNamed: "Rectangle")
+        rectangle.position = CGPoint(x: (self.frame.size.width/2) - 200, y: self.frame.size.height/1.07)
+        rectangle.setScale(3.5)
+        rectangle.zPosition = 3
+        addChild(rectangle)
+//        rectangle.isHidden = false
+        
+        lifeIcon = SKSpriteNode(imageNamed: "LifeIcon")
+        lifeIcon.position = CGPoint(x: (self.frame.size.width/2) - 300, y: self.frame.size.height/1.06)
+        lifeIcon.setScale(3.5)
+        lifeIcon.zPosition = 4
+        addChild(lifeIcon)
+        
+        rectangleScore = SKSpriteNode(imageNamed: "RectangleScore")
+        rectangleScore.position = CGPoint(x: (self.frame.size.width/2) + 350, y: self.frame.size.height/1.07)
+        rectangleScore.setScale(3.5)
+        rectangleScore.zPosition = 3
+        addChild(rectangleScore)
+        
         unpauseBTN.text = "Resume"
-        unpauseBTN.color = UIColor.brown
-        unpauseBTN.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
+        unpauseBTN.color = UIColor.white
+        unpauseBTN.position = CGPoint(x: (self.frame.size.width/2) + 220, y: (self.frame.size.height/2 - 220))
         unpauseBTN.zPosition = 3
-        unpauseBTN.setScale(5)
+        unpauseBTN.setScale(3)
         addChild(unpauseBTN)
         unpauseBTN.isHidden = true
         
-        pauseBackground = SKSpriteNode(imageNamed: "pauseBackground")
+        mapBTN.text = "Map"
+        mapBTN.color = UIColor.white
+        mapBTN.position = CGPoint(x: (self.frame.size.width/2) - 220, y: (self.frame.size.height/2 - 220))
+        mapBTN.zPosition = 3
+        mapBTN.setScale(3)
+        addChild(mapBTN)
+        mapBTN.isHidden = true
+        
+        pauseBackground = SKSpriteNode(imageNamed: "PauseBg")
         pauseBackground.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) + 50)
         pauseBackground.zPosition = 2
-        pauseBackground.setScale(2.5)
+        pauseBackground.setScale(3.5)
         addChild(pauseBackground)
         pauseBackground.isHidden = true
+        
+        questionBox = SKSpriteNode(imageNamed: "questionBox")
+        questionBox.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        questionBox.zPosition = 2
+        questionBox.setScale(3.5)
+        addChild(questionBox)
+        questionBox.isHidden = false
 
         
         playerMove()
@@ -276,7 +275,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.kanjiLebel2.text = kanjiBallon2
         self.kanjiLebel3.text = kanjiBallon3
         self.kanjiLebel4.text = kanjiBallon4
-        self.questionLabel.text = "coba tebak kanji mana yang artinya \"\(question)\""
+        self.questionLabel.text = "kanji of \"\(question)\""
         self.answerLabel.text = answer
            
     }
@@ -323,10 +322,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let frame1 = textureAtlas.textureNamed("ninja2")
         let frame2 = textureAtlas.textureNamed("ninja3")
         let frame3 = textureAtlas.textureNamed("ninja4")
-				let frame4 = textureAtlas.textureNamed("ninja5")
-				let frame5 = textureAtlas.textureNamed("ninja6")
-				let frame6 = textureAtlas.textureNamed("ninja7")
-				let frame7 = textureAtlas.textureNamed("ninja8")
+        let frame4 = textureAtlas.textureNamed("ninja5")
+        let frame5 = textureAtlas.textureNamed("ninja6")
+        let frame6 = textureAtlas.textureNamed("ninja7")
+        let frame7 = textureAtlas.textureNamed("ninja8")
 			
         let player1texture = [frame0, frame1, frame2, frame3, frame4, frame5, frame6, frame7]
         
@@ -364,7 +363,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func timmer() {
         
-        levelTimerLabel.text = "Time : \(levelTimerValue)"
+        levelTimerLabel.text = "\(levelTimerValue)"
         let wait = SKAction.wait(forDuration: 1) //change countdown speed here
         let block = SKAction.run({
                 [unowned self] in
@@ -372,13 +371,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if levelTimerValue > 0{
                    levelTimerValue -= 1
                     
-                    if levelTimerValue == 1 {
-                        correctPosition()
+                    if levelTimerValue == 6 {
+                        spawnWall1()
                     }
-                }else{
+                    
+                    if levelTimerValue == 1 {
+                        questionLabel.isHidden = true
+                        questionBox.isHidden = true
+                        levelTimerLabel.isHidden = true
+                        correctPosition()
+                        spawnWall2()
+                    }
+                }else {
                     levelTimerValue = levelTime
                     kanjiLabel()
                     enableGyro()
+                    questionLabel.isHidden = false
+                    questionBox.isHidden = false
+                    levelTimerLabel.isHidden = false
                     levelNumber += 1
                     if levelNumber == 10 {
                         runGameOver()
@@ -392,7 +402,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func spawn() {
         
-        gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.6), target: self, selector: #selector(playerMove), userInfo: nil, repeats: true)
+        gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.7), target: self, selector: #selector(playerMove), userInfo: nil, repeats: true)
         gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(2.5), target: self, selector: #selector(runningBackground1), userInfo: nil, repeats: true)
         gameTimer = Timer.scheduledTimer(timeInterval: TimeInterval(2.5), target: self, selector: #selector(runningBackground2), userInfo: nil, repeats: true)
       
@@ -432,6 +442,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view!.presentScene(sceneToMoveTo, transition: myTransition)
     }
     
+    func changeSceneMap(){
+        
+        print("you in map")
+//        let sceneToMoveTo = ViewController(size: self.size)
+//        sceneToMoveTo.scaleMode = self.scaleMode
+//
+//        let myTransition = SKTransition.fade(withDuration: 0.5)
+//        self.view!.presentScene(sceneToMoveTo, transition: myTransition)
+    }
+    
     func changeSceneWin(){
         
         let sceneToMoveTo = GameWinScene(size: self.size)
@@ -463,9 +483,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.livesNumber -= 1
         
         if livesNumber == -1 {
-            self.livesLabel.text = "Lives: 0"
+            self.livesLabel.text = "0"
         }else {
-            self.livesLabel.text = "Lives: \(self.livesNumber)"
+            self.livesLabel.text = "\(self.livesNumber)"
         }
 
         let scaleUp = SKAction.scale(to: 1.5, duration: 0.2)
@@ -504,6 +524,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pauseBTN.isHidden = true
                 unpauseBTN.isHidden = false
                 pauseBackground.isHidden = false
+                mapBTN.isHidden = false
+                questionLabel.isHidden = true
+                questionBox.isHidden = true
+                levelTimerLabel.isHidden = true
                 
             }
 
@@ -512,12 +536,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pauseBTN.isHidden = false
                 unpauseBTN.isHidden = true
                 pauseBackground.isHidden = true
+                mapBTN.isHidden = true
+                questionLabel.isHidden = false
+                questionBox.isHidden = false
+                levelTimerLabel.isHidden = false
+                
+            }
+            
+            if mapBTN.contains(location) {
+              changeSceneMap()
                 
             }
         }
     }
     
+    @objc func spawnWall1() {
 
+        let spawnWallImage = SKSpriteNode(imageNamed: "wall")
+
+        spawnWallImage.setScale(2)
+        self.addChild(spawnWallImage)
+        let animationDuration:TimeInterval = 1
+        var wallArray = [SKAction]()
+        spawnWallImage.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height + spawnWallImage.size.height) // start poin
+        wallArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/1.25), duration: animationDuration))
+        
+        spawnWallImage.run(SKAction.sequence(wallArray))
+//        let sequence = SKAction.sequence([block, wait])
+    }
+    
+    @objc func spawnWall2() {
+
+        let spawnWallImage = SKSpriteNode(imageNamed: "wall")
+
+        spawnWallImage.setScale(2)
+        self.addChild(spawnWallImage)
+        let animationDuration:TimeInterval = 1
+        var wallArray = [SKAction]()
+        spawnWallImage.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/1.25) // start poin
+        wallArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2, y: -spawnWallImage.size.height), duration: animationDuration)) // end poin
+        wallArray.append(SKAction.removeFromParent())
+        
+        spawnWallImage.run(SKAction.sequence(wallArray))
+    
+    }
     
     @objc func addAnswer1 () {
 
