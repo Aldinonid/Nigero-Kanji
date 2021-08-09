@@ -363,9 +363,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
                 if levelTimerValue > 0{
                    levelTimerValue -= 1
+                    
+                    if levelTimerValue == 1 {
+                        correctPosition()
+//                        correctposition()
+                    }
                 }else{
                     levelTimerValue = levelTime
                     kanjiLabel()
+                    enableGyro()
                     
                     levelNumber += 1
                     if levelNumber == 10 {
@@ -501,6 +507,99 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 unpauseBTN.isHidden = true
                 pauseBackground.isHidden = true
                 
+            }
+        }
+    }
+    
+    func correctPosition() {
+        motionManger.accelerometerUpdateInterval = 0.0
+        motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
+        if let accelerometerData = data {
+           let acceleration = accelerometerData.acceleration
+            self.xAcceleration = CGFloat(acceleration.x) * 0.0 + self.xAcceleration * 0.0}}
+
+        motionManger.accelerometerUpdateInterval = 0.0
+        var playerArray = [SKAction]()
+
+        if self.player.position.x > 0 && self.player.position.x < 402.315  {
+            print(player.position.x)
+            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: player.size.height / 2 + 150), duration: 1))
+            player.run(SKAction.sequence(playerArray))
+
+        }
+        if self.player.position.x > 402.316 && self.player.position.x < 580.600  {
+            print(player.position.x)
+            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: player.size.height / 2 + 150), duration: 1))
+            player.run(SKAction.sequence(playerArray))
+
+        }
+        if self.player.position.x > 580.601 && self.player.position.x < 759.739  {
+            print(player.position.x)
+            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: player.size.height / 2 + 150), duration: 1))
+            player.run(SKAction.sequence(playerArray))
+
+        }
+        if self.player.position.x > 759.740 && self.player.position.x < self.frame.size.width  {
+            print(player.position.x)
+            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: player.size.height / 2 + 150), duration: 1))
+            player.run(SKAction.sequence(playerArray))
+        }
+
+    }
+    
+//    func correctposition() -> CGFloat{
+//
+//        motionManger.accelerometerUpdateInterval = 0.0
+//        motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
+//        if let accelerometerData = data {
+//           let acceleration = accelerometerData.acceleration
+//            self.xAcceleration = CGFloat(acceleration.x) * 0.0 + self.xAcceleration * 0.0}}
+//
+//            var actionArray = [SKAction]()
+//            var cordinateArr : [CGFloat] = [
+//                player.frame.size.width / 3.75,
+//                player.frame.size.width / 2.375,
+//                player.frame.size.width / 1.75,
+//                player.frame.size.width / 1.375
+//            ]
+//            cordinateArr = cordinateArr.sorted()
+//            print(cordinateArr)
+//            var i = cordinateArr.count-1
+//            if player.position.x > cordinateArr.last!{
+//                return cordinateArr.last!
+//            }else{
+//                while i >= 0{
+//                    if i == 0{
+//                        return cordinateArr.first!
+//                    }else {
+//                        let center = (cordinateArr[i]+cordinateArr[i-1])/2
+////                        self.addChild(dummy)
+//                        //dummy.setScale(10)
+//                        //dummy.position = CGPoint(x: player.frame.size.width / 3.75, y: player.size.height / 2 + 150)
+//                        player.position = CGPoint(x: player.position.x, y: player.size.height / 2 + 150)
+//                        actionArray.append(SKAction.move(to: CGPoint(x: center, y: player.size.height / 2 + 150), duration: 1))
+//                        player.run(SKAction.sequence(actionArray))
+//                        if player.position.x > center{
+//                            print(cordinateArr[i])
+//                            return cordinateArr[i]
+//
+//                        }else{
+//                            i -= 1
+//                        }
+//                    }
+//                }
+//
+//            }
+//            return cordinateArr.first!
+//
+//    }
+    
+    func enableGyro() {
+        motionManger.accelerometerUpdateInterval = 0.2
+        motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
+        if let accelerometerData = data {
+           let acceleration = accelerometerData.acceleration
+           self.xAcceleration = CGFloat(acceleration.x) * 0.75 + self.xAcceleration * 0.25
             }
         }
     }
