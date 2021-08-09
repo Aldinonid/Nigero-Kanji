@@ -12,7 +12,8 @@ import AVFoundation
 class GameViewController: UIViewController {
     var musicPlayer:AVAudioPlayer!
     
-//    override func viewDidLoad() {
+	@IBOutlet weak var rectangleShape: UIView!
+	//    override func viewDidLoad() {
 //        super.viewDidLoad()
 //
 //        let scene = GameScene(size:CGSize(width: DefinedScreenWidth, height: DefinedScreenHeight))
@@ -53,15 +54,21 @@ class GameViewController: UIViewController {
            
            view.showsFPS = true
            view.showsNodeCount = true
+						
+			rectangleShape.layer.shadowColor = UIColor.black.cgColor
+			rectangleShape.layer.shadowOpacity = 0.5
+//			rectangleShape.layer.shadowOffset = 
+			rectangleShape.layer.shadowRadius = 5
+			rectangleShape.layer.shadowPath = UIBezierPath(rect: rectangleShape.bounds).cgPath
            
        }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        musicPlayer = setupAudioPlayerWithFile("Backsong", type: "m4a")
-        musicPlayer.numberOfLoops = -1
-        musicPlayer.play()
+//        musicPlayer = setupAudioPlayerWithFile("Backsong", type: "m4a")
+//        musicPlayer.numberOfLoops = -1
+//        musicPlayer.play()
     }
     
     

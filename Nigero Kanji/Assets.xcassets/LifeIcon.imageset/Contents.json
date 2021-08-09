@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ninc3.png",
+      "filename" : "LifeIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "ninjalive@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "ninjalive@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

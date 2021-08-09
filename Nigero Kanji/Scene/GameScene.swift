@@ -85,12 +85,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-        sakuraFalls = SKEmitterNode(fileNamed: "Starfield")
-        sakuraFalls.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height)
-        sakuraFalls.advanceSimulationTime(10)
-        sakuraFalls.setScale(1)
-        self.addChild(sakuraFalls)
-        sakuraFalls.zPosition = 1
+//        sakuraFalls = SKEmitterNode(fileNamed: "Starfield")
+//        sakuraFalls.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height)
+//        sakuraFalls.advanceSimulationTime(10)
+//        sakuraFalls.setScale(1)
+//        self.addChild(sakuraFalls)
+//        sakuraFalls.zPosition = 1
         
         runningBackground1()
         runningBackground2()
@@ -186,9 +186,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(kanjiLebel4)
         
         // player
-        player = SKSpriteNode(imageNamed: "ninc2")
-        player.position = CGPoint(x: self.frame.size.width / 2, y: player.size.height / 2 + 150)
-        player.setScale(1)
+        player = SKSpriteNode(imageNamed: "ninja1")
+        player.position = CGPoint(x: self.frame.size.width / 2, y: player.size.height / 2 - 88)
+				player.setScale(0.4)
         player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width/4)
         player.physicsBody?.isDynamic = true
         player.physicsBody!.categoryBitMask = PhysicsCategories.Player
@@ -223,7 +223,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         pauseBTN = SKSpriteNode(imageNamed: "pausebutton")
         pauseBTN.position = CGPoint(x: (self.frame.size.width/8) - 50, y: self.frame.size.height/1.08)
-        pauseBTN.setScale(0.5)
+        pauseBTN.setScale(3)
         pauseBTN.zPosition = 3
         addChild(pauseBTN)
         pauseBTN.isHidden = false
@@ -319,13 +319,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func playerMove() {
         let textureAtlas = SKTextureAtlas(named: "Player")
-        let frame0 = textureAtlas.textureNamed("ninc1")
-        let frame1 = textureAtlas.textureNamed("ninc2")
-        let frame2 = textureAtlas.textureNamed("ninc3")
-        let frame3 = textureAtlas.textureNamed("ninc4")
-        let player1texture = [frame0,frame1,frame2,frame3]
+        let frame0 = textureAtlas.textureNamed("ninja1")
+        let frame1 = textureAtlas.textureNamed("ninja2")
+        let frame2 = textureAtlas.textureNamed("ninja3")
+        let frame3 = textureAtlas.textureNamed("ninja4")
+				let frame4 = textureAtlas.textureNamed("ninja5")
+				let frame5 = textureAtlas.textureNamed("ninja6")
+				let frame6 = textureAtlas.textureNamed("ninja7")
+				let frame7 = textureAtlas.textureNamed("ninja8")
+			
+        let player1texture = [frame0, frame1, frame2, frame3, frame4, frame5, frame6, frame7]
         
-        let animateAction = SKAction.animate(with: player1texture, timePerFrame: 0.15)
+        let animateAction = SKAction.animate(with: player1texture, timePerFrame: 0.1)
         player.run(animateAction)
     }
     
@@ -369,7 +374,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     
                     if levelTimerValue == 1 {
                         correctPosition()
-//                        correctposition()
                     }
                 }else{
                     levelTimerValue = levelTime
@@ -513,52 +517,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func correctPosition() {
-        motionManger.accelerometerUpdateInterval = 0.0
-        motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
-        if let accelerometerData = data {
-           let acceleration = accelerometerData.acceleration
-            self.xAcceleration = CGFloat(acceleration.x) * 0.0 + self.xAcceleration * 0.0}}
 
-        motionManger.accelerometerUpdateInterval = 0.0
-        var playerArray = [SKAction]()
-
-        if self.player.position.x > 0 && self.player.position.x < 402.315  {
-            print(player.position.x)
-            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: player.size.height / 2 + 150), duration: 1))
-            player.run(SKAction.sequence(playerArray))
-
-        }
-        if self.player.position.x > 402.316 && self.player.position.x < 580.600  {
-            print(player.position.x)
-            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: player.size.height / 2 + 150), duration: 1))
-            player.run(SKAction.sequence(playerArray))
-
-        }
-        if self.player.position.x > 580.601 && self.player.position.x < 759.739  {
-            print(player.position.x)
-            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: player.size.height / 2 + 150), duration: 1))
-            player.run(SKAction.sequence(playerArray))
-
-        }
-        if self.player.position.x > 759.740 && self.player.position.x < self.frame.size.width  {
-            print(player.position.x)
-            playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: player.size.height / 2 + 150), duration: 1))
-            player.run(SKAction.sequence(playerArray))
-        }
-
-    }
-   
-    
-    func enableGyro() {
-        motionManger.accelerometerUpdateInterval = 0.2
-        motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
-        if let accelerometerData = data {
-           let acceleration = accelerometerData.acceleration
-           self.xAcceleration = CGFloat(acceleration.x) * 0.75 + self.xAcceleration * 0.25
-            }
-        }
-    }
     
     @objc func addAnswer1 () {
 
@@ -863,43 +822,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
-    
-    func correctposition () -> CGFloat{
-        
-        
-        var actionArray = [SKAction]()
-        var cordinateArr : [CGFloat] = [
-            player.frame.size.width / 3.75,
-            player.frame.size.width / 2.375,
-            player.frame.size.width / 1.75,
-            player.frame.size.width / 1.375
-        ]
-        cordinateArr = cordinateArr.sorted()
-        var i = cordinateArr.count-1
-        if player.position.x > cordinateArr.last!{
-            return cordinateArr.last!
-        }else{
-            while i >= 0{
-                if i == 0{
-                    return cordinateArr.first!
-                }else{
-                    let center = (cordinateArr[i]+cordinateArr[i-1])/2
-                    self.addChild(dummy)
-                    //dummy.setScale(10)
-                    //dummy.position = CGPoint(x: player.frame.size.width / 3.75, y: player.size.height / 2 + 150)
-                    player.position = CGPoint(x: player.position.x, y: player.size.height / 2 + 150)
-                    actionArray.append(SKAction.move(to: CGPoint(x: center, y: player.size.height / 2 + 150), duration: 1))
-                    player.run(SKAction.sequence(actionArray))
-                    if player.position.x > center{
-                        return cordinateArr[i]
-                    }else{
-                        i -= 1
-                    }
-                }
-            }
-
-        }
-        return cordinateArr.first!
 
     override func didSimulatePhysics() {
         
@@ -918,11 +840,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
-
-
-
-
-    
 }
-//playerCoordinate(userPos: 2)
-
