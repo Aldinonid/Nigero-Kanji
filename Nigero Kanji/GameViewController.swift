@@ -12,27 +12,49 @@ import AVFoundation
 class GameViewController: UIViewController {
     var musicPlayer:AVAudioPlayer!
     
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        let scene = GameScene(size:CGSize(width: DefinedScreenWidth, height: DefinedScreenHeight))
+//
+//        // Configure the view.
+//        let skView = self.view as! SKView
+////        skView.showsFPS = true
+////        skView.showsNodeCount = true
+//
+//        /* Sprite Kit applies additional optimizations to improve rendering performance */
+//        skView.ignoresSiblingOrder = true
+//
+//        /* Set the scale mode to scale to fit the window */
+//        scene.scaleMode = .aspectFill
+//
+//        skView.presentScene(scene)
+//    }
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let scene = GameScene(size:CGSize(width: DefinedScreenWidth, height: DefinedScreenHeight))
-        
-        // Configure the view.
-        let skView = self.view as! SKView
-//        skView.showsFPS = true
-//        skView.showsNodeCount = true
-        
-        /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView.ignoresSiblingOrder = true
-        
-        /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .aspectFill
-        
-        skView.presentScene(scene)
-        
-        
-        
-    }
+           super.viewDidLoad()
+           
+           guard let view = self.view as! SKView? else  {
+               return
+           }
+           
+           // Load the SKScene from 'GameScene.sks'
+           var size: CGSize = self.view.bounds.size
+           size.width *= UIScreen.main.scale
+           size.height *= UIScreen.main.scale
+           let scene = GameScene(size: size)
+           // Set the scale mode to scale to fit the window
+           scene.scaleMode = .aspectFill
+           
+           // Present the scene
+           view.presentScene(scene)
+           
+           view.ignoresSiblingOrder = true
+           
+           view.showsFPS = true
+           view.showsNodeCount = true
+           
+       }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

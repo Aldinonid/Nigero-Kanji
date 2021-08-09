@@ -131,8 +131,8 @@ class Question{
     
     func showKanji() {
         
-        let answerKanji = questionKanjiLevel1.randomElement()!
-				questionKanjiLevel1 = questionKanjiLevel1.filter() {$0.urutan != answerKanji.urutan}
+        let answerKanji = decoyKanji.randomElement()!
+				decoyKanji = decoyKanji.filter() {$0.urutan != answerKanji.urutan}
         let decoyKanji1 = decoyKanji.randomElement()!
 				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji1.urutan}
         let decoyKanji2 = decoyKanji.randomElement()!
@@ -171,7 +171,7 @@ class Question{
 //        
 //        //print jawaban
 //        
-        print("\n sssttt jawabannya adalah : \(answerKanji.karakter)")
+//        print("\n sssttt jawabannya adalah : \(answerKanji.karakter)")
         
         
         
