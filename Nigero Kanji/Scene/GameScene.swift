@@ -532,6 +532,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let sceneToMoveTo = GameOverScene(size: self.size)
         sceneToMoveTo.scaleMode = self.scaleMode
+				
+				sceneToMoveTo.question = "\(questionLabel2.text!)"
+				sceneToMoveTo.kanji = "\(answerLabel.text!)"
 
         let myTransition = SKTransition.fade(withDuration: 0.5)
         self.view!.presentScene(sceneToMoveTo, transition: myTransition)

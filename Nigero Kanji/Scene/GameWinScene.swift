@@ -13,66 +13,73 @@ import SpriteKit
 
 class GameWinScene: SKScene{
  
-    let restartLabel = SKLabelNode(fontNamed: "theboldfont")
-    var background:SKSpriteNode!
+		var nextLevelLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
+		var gameWinImage: SKSpriteNode!
+		var gameWinBackground: SKSpriteNode!
+		let gameWinLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
+		let gameWinDescriptionLabel = SKLabelNode(fontNamed: "arial")
+		var mapLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
+		var background:SKSpriteNode!
     
     override func didMove(to view: SKView) {
         
-//        let bckRnd = SKSpriteNode(imageNamed: "background")
-//        bckRnd.size = self.size
-//        bckRnd.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-//        bckRnd.zPosition = 0
-//        self.addChild(bckRnd)
-        
-        background = SKSpriteNode(imageNamed: "MainGameScreen")
-        background.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
-        background.size = CGSize(width: self.frame.size.width, height: self.frame.size.height)
-//        starfield.advanceSimulationTime(10)
-        background.setScale(1)
-        self.addChild(background)
-        background.zPosition = -1
-        
-        let gameOverLabel = SKLabelNode(fontNamed: "theboldfont")
-        gameOverLabel.text = "Congratulation"
-        gameOverLabel.fontSize = 150
-        gameOverLabel.fontColor = SKColor.brown
-        gameOverLabel.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.7)
-        gameOverLabel.zPosition = 1
-        self.addChild(gameOverLabel)
-        
-        let scoreLabel = SKLabelNode(fontNamed: "theboldfont")
-//        scoreLabel.text = "Score: \(gameScore)"
-        scoreLabel.fontSize = 125
-        scoreLabel.fontColor = SKColor.white
-        scoreLabel.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.55)
-        scoreLabel.zPosition = 1
-        self.addChild(scoreLabel)
-        
-//        let defaults = UserDefaults()
-//        var highScoreNumber = defaults.integer(forKey: "highScoreSaved")
-        
-//        if (gameScore > highScoreNumber){
-//            highScoreNumber = gameScore
-//            defaults.set(highScoreNumber, forKey: "highScoreSaved")
-//        }
-        
-//        let highScorelabel = SKLabelNode(fontNamed: "theboldfont")
-//        highScorelabel.text = "High Score: \(highScoreNumber)"
-//        highScorelabel.fontSize = 125
-//        highScorelabel.fontColor = SKColor.white
-//        highScorelabel.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.45)
-//        highScorelabel.zPosition = 1
-//        self.addChild(highScorelabel)
-        
-        
-        restartLabel.text = "Restart"
-        restartLabel.fontSize = 90
-        restartLabel.fontColor = SKColor.brown
-        restartLabel.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.3)
-        restartLabel.zPosition = 1
-        self.addChild(restartLabel)
+			background = SKSpriteNode(imageNamed: "MainGameScreen")
+			background.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
+			background.size = CGSize(width: self.frame.size.width, height: self.frame.size.height)
+			background.setScale(1)
+			self.addChild(background)
+			background.zPosition = -1
+			
+			gameWinImage = SKSpriteNode(imageNamed: "ninjahead")
+			gameWinImage.position = CGPoint(x: (self.frame.size.width/2) + 50 , y: (self.frame.size.height/2) + 200 )
+			gameWinImage.setScale(3)
+			gameWinImage.zPosition = 2
+			self.addChild(gameWinImage)
+			
+			gameWinBackground = SKSpriteNode(imageNamed: "GameAlertBackground")
+			gameWinBackground.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) + 50)
+			gameWinBackground.setScale(3.5)
+			self.addChild(gameWinBackground)
+			
+			
+			gameWinLabel.text = "Congratulations"
+			gameWinLabel.fontSize = 90
+			gameWinLabel.fontColor = SKColor.white
+			gameWinLabel.position = CGPoint(x: self.size.width / 2 , y: (self.size.height / 2) + 400)
+			gameWinLabel.zPosition = 2
+			self.addChild(gameWinLabel)
+			
+			gameWinDescriptionLabel.text = "You’ve mastered all the kanji \nin Level 1, warrior. \nGo ahead to the next level!"
+			gameWinDescriptionLabel.numberOfLines = 3
+			gameWinDescriptionLabel.fontSize = 50
+			gameWinDescriptionLabel.fontColor = SKColor.white
+			gameWinDescriptionLabel.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) - 150 )
+			gameWinDescriptionLabel.zPosition = 2
+			self.addChild(gameWinDescriptionLabel)
+			
+			nextLevelLabel.text = "Next Level"
+			nextLevelLabel.fontSize = 80
+			nextLevelLabel.fontColor = SKColor.white
+			nextLevelLabel.position = CGPoint(x: (self.size.width / 2) + 230, y: (self.size.height / 2) - 370 )
+			nextLevelLabel.zPosition = 2
+			self.addChild(nextLevelLabel)
+			
+			mapLabel.text = "Map"
+			mapLabel.fontSize = 80
+			mapLabel.color = UIColor.white
+			mapLabel.position = CGPoint(x: (self.frame.size.width / 2) - 230, y: (self.frame.size.height/2) - 370)
+			mapLabel.zPosition = 2
+			addChild(mapLabel)
         
     }
+	
+	func changeSceneMap() {
+		print("Going to Map Scene")
+	}
+	
+	func changeSceneNextLevel() {
+		print("Going to Next Level Scene")
+	}
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -80,13 +87,13 @@ class GameWinScene: SKScene{
             
             let pointOfTouch = touch.location(in: self)
             
-            if(restartLabel.contains(pointOfTouch)){
-                
-                let sceneToMoveTo = GameScene(size: self.size)
-                sceneToMoveTo.scaleMode = self.scaleMode
-                let myTransition = SKTransition.fade(withDuration: 0.5)
-                self.view!.presentScene(sceneToMoveTo, transition: myTransition)
+            if(nextLevelLabel.contains(pointOfTouch)){
+                changeSceneNextLevel()
             }
+					
+						if (mapLabel.contains(pointOfTouch)){
+								changeSceneMap()
+						}
             
         }
         
