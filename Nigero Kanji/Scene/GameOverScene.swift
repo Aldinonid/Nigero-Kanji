@@ -10,7 +10,12 @@ import SpriteKit
 
 class GameOverScene: SKScene{
  
-    let restartLabel = SKLabelNode(fontNamed: "arial")
+    var restartLabel = SKLabelNode(fontNamed: "arial")
+		var gameOverImage: SKSpriteNode!
+		var gameOverBackground: SKSpriteNode!
+		let gameOverLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
+		let gameOverDescriptionLabel = SKLabelNode(fontNamed: "arial")
+		var mapLabel = SKLabelNode(fontNamed: "arial")
     var background:SKSpriteNode!
     
     override func didMove(to view: SKView) {
@@ -28,14 +33,33 @@ class GameOverScene: SKScene{
         background.setScale(1)
         self.addChild(background)
         background.zPosition = -1
+			
+				gameOverImage = SKSpriteNode(imageNamed: "ninjaheadcry")
+				gameOverImage.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
+				gameOverImage.setScale(3)
+				gameOverImage.zPosition = 2
+				self.addChild(gameOverImage)
+			
+				gameOverBackground = SKSpriteNode(imageNamed: "GameAlertBackground")
+				gameOverBackground.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) + 50)
+				gameOverBackground.setScale(3.5)
+				self.addChild(gameOverBackground)
         
-        let gameOverLabel = SKLabelNode(fontNamed: "arial")
+			
         gameOverLabel.text = "Game Over"
-        gameOverLabel.fontSize = 150
-        gameOverLabel.fontColor = SKColor.brown
-        gameOverLabel.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.7)
-        gameOverLabel.zPosition = 1
+        gameOverLabel.fontSize = 90
+        gameOverLabel.fontColor = SKColor.white
+				gameOverLabel.position = CGPoint(x: self.size.width / 2 , y: (self.size.height / 2) + 450)
+				gameOverLabel.zPosition = 2
         self.addChild(gameOverLabel)
+			
+				gameOverDescriptionLabel.text = "The correct kanji for water is 水 \nYou are almost there, warrior! \nKeep going!"
+				gameOverDescriptionLabel.numberOfLines = 3
+				gameOverDescriptionLabel.fontSize = 50
+				gameOverDescriptionLabel.fontColor = SKColor.white
+				gameOverDescriptionLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+			gameOverDescriptionLabel.zPosition = 2
+				self.addChild(gameOverDescriptionLabel)
         
         let scoreLabel = SKLabelNode(fontNamed: "arial")
 //        scoreLabel.text = "Score: \(gameScore)"

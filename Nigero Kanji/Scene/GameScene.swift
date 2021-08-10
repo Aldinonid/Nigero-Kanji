@@ -22,7 +22,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var rectangle: SKSpriteNode!
     var lifeIcon: SKSpriteNode!
     var rectangleScore: SKSpriteNode!
-    let scoreLabel = SKLabelNode(fontNamed: "arial")
+    let scoreLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
     let livesLabel = SKLabelNode(fontNamed: "arial")
     let questionLabel = SKLabelNode(fontNamed: "arial")
     let kanjiLebel1 = SKLabelNode(fontNamed: "arial")
@@ -44,7 +44,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var levelNumber = 1
     var spawnTime = 7
     var levelTime = 7
-    var levelTimerValue: Int = 8 {
+    var levelTimerValue: Int = 9 {
         didSet {
             levelTimerLabel.text = "\(levelTimerValue)"
         }
@@ -53,7 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameScore = 0
     var score:Int = 0 {
         didSet {
-            scoreLabel.text = "Score: \(score)"
+            scoreLabel.text = "Score: \(score)/10"
         }
     }
     
@@ -141,31 +141,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         kanjiLebel1.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.5)
         kanjiLebel1.zPosition = 5
         self.addChild(kanjiLebel1)
-			kanjiLebel1.isHidden = true
+				kanjiLebel1.isHidden = true
         
 //        kanjiLebel2.text = kanjiBallon2
         kanjiLebel2.fontSize = 75
         kanjiLebel2.fontColor = SKColor.white
-			kanjiLebel2.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.5)
+				kanjiLebel2.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.5)
         kanjiLebel2.zPosition = 5
         self.addChild(kanjiLebel2)
-			kanjiLebel2.isHidden = true
+				kanjiLebel2.isHidden = true
         
 //        kanjiLebel3.text = kanjiBallon3
         kanjiLebel3.fontSize = 75
         kanjiLebel3.fontColor = SKColor.white
-			kanjiLebel3.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.5)
+				kanjiLebel3.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.5)
         kanjiLebel3.zPosition = 5
         self.addChild(kanjiLebel3)
-			kanjiLebel3.isHidden = true
+				kanjiLebel3.isHidden = true
         
 //        kanjiLebel4.text = kanjiBallon4
         kanjiLebel4.fontSize = 75
         kanjiLebel4.fontColor = SKColor.white
-			kanjiLebel4.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.5)
+				kanjiLebel4.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.5)
         kanjiLebel4.zPosition = 5
         self.addChild(kanjiLebel4)
-			kanjiLebel4.isHidden = true
+				kanjiLebel4.isHidden = true
         
         // player
         player = SKSpriteNode(imageNamed: "ninja1")
@@ -181,11 +181,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         self.physicsWorld.contactDelegate = self
         
-        self.scoreLabel.text = "Score: \(gameScore)"
-        self.scoreLabel.fontSize = 100
+        self.scoreLabel.text = "Score: \(gameScore)/10"
+        self.scoreLabel.fontSize = 70
         self.scoreLabel.fontColor = SKColor.white
         self.scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        self.scoreLabel.position = CGPoint(x: (self.frame.size.width/2) + 130, y: self.frame.size.height/1.109)
+        self.scoreLabel.position = CGPoint(x: (self.frame.size.width/2) + 110, y: self.frame.size.height/1.107)
         self.scoreLabel.zPosition = 5
         self.addChild(self.scoreLabel)
         
@@ -306,7 +306,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let question = model.kanjiArti
         let answer = model.kanjiKarakter
         
-        scoreLabel.text = "Score: \(gameScore)"
+        scoreLabel.text = "Score: \(gameScore)/10"
 				self.pauseDescriptionLabel.text = "Currently you have answered \n\(gameScore) questions correctly"
         self.kanjiLebel1.text = kanjiBallon1
         self.kanjiLebel2.text = kanjiBallon2
@@ -438,6 +438,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func timmer() {
         
         levelTimerLabel.text = "\(levelTimerValue)"
+				levelTimerLabel.isHidden = true
         let wait = SKAction.wait(forDuration: 1) //change countdown speed here
         let block = SKAction.run({
                 [unowned self] in
@@ -445,17 +446,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if levelTimerValue > 0{
                    levelTimerValue -= 1
                     
-                    if levelTimerValue == 6 {
+                    if levelTimerValue == 8 {
                         spawnWall1()
                         kanjiSpawnA()
                     }
 									
-									if levelTimerValue == 5 {
+									if levelTimerValue == 7 {
 										kanjiLebel1.isHidden = false
 										kanjiLebel2.isHidden = false
 										kanjiLebel3.isHidden = false
 										kanjiLebel4.isHidden = false
-										
+										levelTimerLabel.isHidden = false
 									}
                     
                     if levelTimerValue == 1 {
@@ -559,7 +560,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addScore(){
         
         gameScore += 1
-        self.scoreLabel.text = "Score :\(gameScore)/10"
+        self.scoreLabel.text = "Score: \(gameScore)/10"
         
         let scaleUp = SKAction.scale(to: 1.5, duration: 0.2)
         let scaleDown = SKAction.scale(to: 1, duration: 0.2)
