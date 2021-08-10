@@ -138,7 +138,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        kanjiLebel1.text = kanjiBallon1
         kanjiLebel1.fontSize = 75
         kanjiLebel1.fontColor = SKColor.white
-        kanjiLebel1.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.5)
+        kanjiLebel1.position = CGPoint(x: self.frame.size.width/8, y: self.frame.size.height/1.5)
         kanjiLebel1.zPosition = 5
         self.addChild(kanjiLebel1)
 				kanjiLebel1.isHidden = true
@@ -146,7 +146,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        kanjiLebel2.text = kanjiBallon2
         kanjiLebel2.fontSize = 75
         kanjiLebel2.fontColor = SKColor.white
-				kanjiLebel2.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.5)
+				kanjiLebel2.position = CGPoint(x: (self.frame.size.width/8) * 3, y: self.frame.size.height/1.5)
         kanjiLebel2.zPosition = 5
         self.addChild(kanjiLebel2)
 				kanjiLebel2.isHidden = true
@@ -154,7 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        kanjiLebel3.text = kanjiBallon3
         kanjiLebel3.fontSize = 75
         kanjiLebel3.fontColor = SKColor.white
-				kanjiLebel3.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.5)
+				kanjiLebel3.position = CGPoint(x: (self.frame.size.width/8) * 5, y: self.frame.size.height/1.5)
         kanjiLebel3.zPosition = 5
         self.addChild(kanjiLebel3)
 				kanjiLebel3.isHidden = true
@@ -162,7 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        kanjiLebel4.text = kanjiBallon4
         kanjiLebel4.fontSize = 75
         kanjiLebel4.fontColor = SKColor.white
-				kanjiLebel4.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.5)
+				kanjiLebel4.position = CGPoint(x: (self.frame.size.width/8) * 7, y: self.frame.size.height/1.5)
         kanjiLebel4.zPosition = 5
         self.addChild(kanjiLebel4)
 				kanjiLebel4.isHidden = true
@@ -471,10 +471,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         
                         var wallArray = [SKAction]()
                         wallArray.append(SKAction.removeFromParent())
-                        questionLabel.isHidden = true
-                        questionLabel2.isHidden = true
-                        questionBox.isHidden = true
-                        levelTimerLabel.isHidden = true
+//                        questionLabel.isHidden = true
+//                        questionLabel2.isHidden = true
+//                        questionBox.isHidden = true
+//                        levelTimerLabel.isHidden = true
                         correctPosition()
                         spawnWall2()
                         kanjiSpawnB()
@@ -715,8 +715,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 1.05
         var actionArray = [SKAction]()
-        spawnAnswer.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height + spawnAnswer.size.height)
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.42), duration: animationDuration))
+        spawnAnswer.position = CGPoint(x: self.frame.size.width/8, y: self.frame.size.height + spawnAnswer.size.height)
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/8, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
@@ -736,8 +736,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 0.75
         var actionArray = [SKAction]()
-        spawnAnswer.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.5)
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: -spawnAnswer.size.height), duration: animationDuration))
+        spawnAnswer.position = CGPoint(x: self.frame.size.width/8, y: self.frame.size.height/1.5)
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/8, y: -spawnAnswer.size.height), duration: animationDuration))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
     }
@@ -758,8 +758,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 1.05
         var actionArray = [SKAction]()
-        spawnAnswer.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height + spawnAnswer.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.42), duration: animationDuration))
+        spawnAnswer.position = CGPoint(x: (self.frame.size.width/8) * 3, y: self.frame.size.height + spawnAnswer.size.height) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 3, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
@@ -780,8 +780,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 0.75
         var actionArray = [SKAction]()
-        spawnAnswer.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.5)
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: -spawnAnswer.size.height), duration: animationDuration))
+        spawnAnswer.position = CGPoint(x: (self.frame.size.width/8) * 3, y: self.frame.size.height/1.5)
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 3, y: -spawnAnswer.size.height), duration: animationDuration))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
     }
@@ -802,8 +802,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 1.05
         var actionArray = [SKAction]()
-        spawnAnswer.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height + spawnAnswer.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.42), duration: animationDuration))
+        spawnAnswer.position = CGPoint(x: (self.frame.size.width/8) * 5, y: self.frame.size.height + spawnAnswer.size.height) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 5, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
@@ -824,8 +824,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 0.75
         var actionArray = [SKAction]()
-        spawnAnswer.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.5)
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: -spawnAnswer.size.height), duration: animationDuration))
+        spawnAnswer.position = CGPoint(x: (self.frame.size.width/8) * 5, y: self.frame.size.height/1.5)
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 5, y: -spawnAnswer.size.height), duration: animationDuration))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
     }
@@ -845,8 +845,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 1.05
         var actionArray = [SKAction]()
-        spawnAnswer.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height + spawnAnswer.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.42), duration: animationDuration)) //
+        spawnAnswer.position = CGPoint(x: (self.frame.size.width/8) * 7, y: self.frame.size.height + spawnAnswer.size.height) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 7, y: self.frame.size.height/1.42), duration: animationDuration)) //
         actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
@@ -867,8 +867,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spawnAnswer)
         let animationDuration:TimeInterval = 0.75
         var actionArray = [SKAction]()
-        spawnAnswer.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.5)
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: -spawnAnswer.size.height), duration: animationDuration))
+        spawnAnswer.position = CGPoint(x: (self.frame.size.width/8) * 7, y: self.frame.size.height/1.5)
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 7, y: -spawnAnswer.size.height), duration: animationDuration))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
     }
@@ -887,8 +887,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(alien)
         let animationDuration:TimeInterval = 1.05
         var actionArray = [SKAction]()
-        alien.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height + alien.size.height) // start poin
-			actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.42), duration: animationDuration)) // end
+        alien.position = CGPoint(x: self.frame.size.width/8 , y: self.frame.size.height + alien.size.height) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/8 , y: self.frame.size.height/1.42), duration: animationDuration)) // end
         actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
@@ -909,8 +909,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(alien)
         let animationDuration:TimeInterval = 0.75
         var actionArray = [SKAction]()
-        alien.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.5) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: -alien.size.height), duration: animationDuration)) // end
+        alien.position = CGPoint(x: self.frame.size.width/8, y: self.frame.size.height/1.5) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/8, y: -alien.size.height), duration: animationDuration)) // end
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
     
@@ -930,8 +930,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(alien)
         let animationDuration:TimeInterval = 1.05
         var actionArray = [SKAction]()
-        alien.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height + alien.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.42), duration: animationDuration))
+        alien.position = CGPoint(x: (self.frame.size.width/8) * 3, y: self.frame.size.height + alien.size.height) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8 ) * 3, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
@@ -952,8 +952,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(alien)
         let animationDuration:TimeInterval = 0.75
         var actionArray = [SKAction]()
-        alien.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.5) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: -alien.size.height), duration: animationDuration)) // end
+        alien.position = CGPoint(x: (self.frame.size.width/8) * 3, y: self.frame.size.height/1.5) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 3, y: -alien.size.height), duration: animationDuration)) // end
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
     
@@ -973,8 +973,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(alien)
         let animationDuration:TimeInterval = 1.05
         var actionArray = [SKAction]()
-        alien.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height + alien.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.42), duration: animationDuration))
+        alien.position = CGPoint(x: (self.frame.size.width/8) * 5, y: self.frame.size.height + alien.size.height) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 5, y: self.frame.size.height/1.42), duration: animationDuration))
         
         actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
@@ -996,8 +996,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(alien)
         let animationDuration:TimeInterval = 0.75
         var actionArray = [SKAction]()
-        alien.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.5) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: -alien.size.height), duration: animationDuration)) // end
+        alien.position = CGPoint(x: (self.frame.size.width/8) * 5, y: self.frame.size.height/1.5) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 5, y: -alien.size.height), duration: animationDuration)) // end
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
     
@@ -1017,8 +1017,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(alien)
         let animationDuration:TimeInterval = 1.05
         var actionArray = [SKAction]()
-        alien.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height + alien.size.height) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.42), duration: animationDuration))
+        alien.position = CGPoint(x: (self.frame.size.width/8) * 7, y: self.frame.size.height + alien.size.height) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 7, y: self.frame.size.height/1.42), duration: animationDuration))
         actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
@@ -1039,8 +1039,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(alien)
         let animationDuration:TimeInterval = 0.75
         var actionArray = [SKAction]()
-        alien.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.5) // start poin
-        actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: -alien.size.height), duration: animationDuration)) // end
+        alien.position = CGPoint(x: (self.frame.size.width/8) * 7, y: self.frame.size.height/1.5) // start poin
+        actionArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 7, y: -alien.size.height), duration: animationDuration)) // end
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
     
@@ -1071,6 +1071,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let loseALife = SKAction.run(self.loseLife)
                 let enemySequence = SKAction.sequence([loseALife])
                     run(enemySequence)
+                
             }
             
             if(body2.node != nil){
@@ -1082,11 +1083,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             //if bullet hits enemy
             if(body1.node != nil){
-                print(player.position.x)
+                
                 self.changeDoor(spawnPosition: body2.node!.position)
                 addScore()
                 body2.node?.removeFromParent()
-
+                
             }
         }
     }
@@ -1104,7 +1105,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        let delete = SKAction.removeFromParent()
 //        let explosionSequence = SKAction.sequence([scaleIn, fadeOut, delete])
         
-        let animationDuration:TimeInterval = 0.35
+        let animationDuration:TimeInterval = 0.325
         var doorArray = [SKAction]()
         doorArray.append(SKAction.move(to: CGPoint(x: spawnPosition.x, y: -doorOpen.size.height), duration: animationDuration)) // end
         doorArray.append(SKAction.removeFromParent())
@@ -1122,29 +1123,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             motionManger.accelerometerUpdateInterval = 0.0
             var playerArray = [SKAction]()
 
-            if self.player.position.x > 0 && self.player.position.x < 402.315 {
+        if self.player.position.x > 0 && self.player.position.x < 292.49  {
                 
-                playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: player.size.height / 2 + 150), duration: 1))
+                playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/8, y: player.size.height / 2 + 150), duration: 0.5))
                 player.run(SKAction.sequence(playerArray))
-                //Kiri 1 312
-                //Kiri 2 492.6314697265625
-                //Kiri 3 668.5711669921875
-                //Kiri 4 850.9088745117188
-            }else if self.player.position.x > 402.316 && self.player.position.x < 580.6  {
-                playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: player.size.height / 2 + 150), duration: 1))
-                player.run(SKAction.sequence(playerArray))
-
-            }else if self.player.position.x > 580.601 && self.player.position.x < 759.739  {
-                playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: player.size.height / 2 + 150), duration: 1))
+                
+                //Kiri 1 146.24996948242188
+                //Kiri 2 438.75
+                //Kiri 3 731.2499389648438
+                //Kiri 4 1023.75
+            }
+        else if self.player.position.x > 292.5 && self.player.position.x < 585  {
+            playerArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 3, y: player.size.height / 2 + 150), duration: 0.5))
                 player.run(SKAction.sequence(playerArray))
 
-            }else if self.player.position.x > 759.740 && self.player.position.x < self.frame.size.width  {
-                    print(player.position.x)
-                    playerArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: player.size.height / 2 + 150), duration: 1))
+        }else if self.player.position.x > 585.01 && self.player.position.x < 877.5  {
+            playerArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 5, y: player.size.height / 2 + 150), duration: 0.5))
+                player.run(SKAction.sequence(playerArray))
+
+        }else if self.player.position.x > 877.51 && self.player.position.x < self.frame.width {
+                    
+                playerArray.append(SKAction.move(to: CGPoint(x: (self.frame.size.width/8) * 7, y: player.size.height / 2 + 150), duration: 0.5))
                     player.run(SKAction.sequence(playerArray))
                 }
+
         
-        }
+    }
     
     func enableGyro () {
         motionManger.accelerometerUpdateInterval = 0.2
