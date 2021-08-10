@@ -43,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var livesNumber = 3
     var levelNumber = 1
 //    var spawnTime = 7
-    var levelTime = 9
+    var levelTime = 10
     var levelTimerValue: Int = 10 {
         didSet {
             levelTimerLabel.text = "\(levelTimerValue)"
@@ -442,21 +442,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if levelTimerValue > 0{
                    levelTimerValue -= 1
                     
-                    if levelTimerValue == 8 {
+                    if levelTimerValue == 9 {
                         spawnWall1()
                         kanjiSpawnA()
                     }
 									
-									if levelTimerValue == 7 {
-											kanjiLebel1.isHidden = false
-											kanjiLebel2.isHidden = false
-											kanjiLebel3.isHidden = false
-											kanjiLebel4.isHidden = false
+									if levelTimerValue == 8 {
+											
 											levelTimerLabel.isHidden = false
 											questionBox.isHidden = false
 											questionLabel.isHidden = false
 											questionLabel2.isHidden = false
 									}
+                    
+                    if levelTimerValue == 7 {
+                        kanjiLebel1.isHidden = false
+                        kanjiLebel2.isHidden = false
+                        kanjiLebel3.isHidden = false
+                        kanjiLebel4.isHidden = false
+                    }
                     
                     if levelTimerValue == 0 {
 											
@@ -647,10 +651,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 levelTimerLabel.isHidden = false
 							pauseLabel.isHidden = true
 							pauseDescriptionLabel.isHidden = true
-							kanjiLebel1.isHidden = false
-							kanjiLebel2.isHidden = false
-							kanjiLebel3.isHidden = false
-							kanjiLebel4.isHidden = false
+                
+                if levelTimerValue < 7 {
+                    kanjiLebel1.isHidden = false
+                    kanjiLebel2.isHidden = false
+                    kanjiLebel3.isHidden = false
+                    kanjiLebel4.isHidden = false
+                    
+                }
+//							kanjiLebel1.isHidden = false
+//							kanjiLebel2.isHidden = false
+//							kanjiLebel3.isHidden = false
+//							kanjiLebel4.isHidden = false
                 
             }
             
@@ -705,7 +717,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var actionArray = [SKAction]()
         spawnAnswer.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height + spawnAnswer.size.height)
         actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.42), duration: animationDuration))
-        actionArray.append(SKAction.wait(forDuration: 7))
+        actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
     }
@@ -748,7 +760,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var actionArray = [SKAction]()
         spawnAnswer.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height + spawnAnswer.size.height) // start poin
         actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.42), duration: animationDuration))
-        actionArray.append(SKAction.wait(forDuration: 7))
+        actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
     
@@ -792,7 +804,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var actionArray = [SKAction]()
         spawnAnswer.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height + spawnAnswer.size.height) // start poin
         actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.42), duration: animationDuration))
-        actionArray.append(SKAction.wait(forDuration: 7))
+        actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
     
@@ -835,7 +847,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var actionArray = [SKAction]()
         spawnAnswer.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height + spawnAnswer.size.height) // start poin
         actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.42), duration: animationDuration)) //
-        actionArray.append(SKAction.wait(forDuration: 7))
+        actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         spawnAnswer.run(SKAction.sequence(actionArray))
     
@@ -877,7 +889,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var actionArray = [SKAction]()
         alien.position = CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height + alien.size.height) // start poin
 			actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/3.75, y: self.frame.size.height/1.42), duration: animationDuration)) // end
-        actionArray.append(SKAction.wait(forDuration: 7))
+        actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
     
@@ -920,7 +932,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var actionArray = [SKAction]()
         alien.position = CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height + alien.size.height) // start poin
         actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/2.375, y: self.frame.size.height/1.42), duration: animationDuration))
-        actionArray.append(SKAction.wait(forDuration: 7))
+        actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
         
@@ -964,7 +976,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         alien.position = CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height + alien.size.height) // start poin
         actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.75, y: self.frame.size.height/1.42), duration: animationDuration))
         
-        actionArray.append(SKAction.wait(forDuration: 7))
+        actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
         
@@ -1007,7 +1019,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var actionArray = [SKAction]()
         alien.position = CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height + alien.size.height) // start poin
         actionArray.append(SKAction.move(to: CGPoint(x: self.frame.size.width/1.375, y: self.frame.size.height/1.42), duration: animationDuration))
-        actionArray.append(SKAction.wait(forDuration: 7))
+        actionArray.append(SKAction.wait(forDuration: 8))
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
         
@@ -1055,9 +1067,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if(body1.node != nil){
 
                 body2.node?.removeFromParent()
+                self.changeDoor(spawnPosition: body1.node!.position)
                 let loseALife = SKAction.run(self.loseLife)
                 let enemySequence = SKAction.sequence([loseALife])
                     run(enemySequence)
+            }
+            
+            if(body2.node != nil){
+                self.changeDoor(spawnPosition: body2.node!.position)
             }
         }
         
@@ -1066,6 +1083,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //if bullet hits enemy
             if(body1.node != nil){
                 print(player.position.x)
+                self.changeDoor(spawnPosition: body2.node!.position)
                 addScore()
                 body2.node?.removeFromParent()
 
@@ -1073,44 +1091,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func torpedoDidCollideWithAlien (player:SKSpriteNode, alienNode:SKSpriteNode) {
-    
-        let explosion = SKEmitterNode(fileNamed: "Explosion")!
-        explosion.position = alienNode.position
-        self.addChild(explosion)
-        self.run(SKAction.playSoundFileNamed("explosion.mp3", waitForCompletion: false))
-        alienNode.removeFromParent()
-        self.run(SKAction.wait(forDuration: 2)) {
-            explosion.removeFromParent()
-        }
+    func changeDoor(spawnPosition: CGPoint){
+        
+        let doorOpen = SKSpriteNode(imageNamed: "DoorOpen")
+        doorOpen.position = spawnPosition
+        doorOpen.zPosition = 8
+        doorOpen.setScale(0.5)
+        self.addChild(doorOpen)
+        
+//        let scaleIn = SKAction.scale(to: 1, duration: 0.1)
+//        let fadeOut = SKAction.fadeOut(withDuration: 0.1)
+//        let delete = SKAction.removeFromParent()
+//        let explosionSequence = SKAction.sequence([scaleIn, fadeOut, delete])
+        
+        let animationDuration:TimeInterval = 0.35
+        var doorArray = [SKAction]()
+        doorArray.append(SKAction.move(to: CGPoint(x: spawnPosition.x, y: -doorOpen.size.height), duration: animationDuration)) // end
+        doorArray.append(SKAction.removeFromParent())
+        doorOpen.run(SKAction.sequence(doorArray))
+//        doorOpen.run(explosionSequence)
     }
     
-    func startNewLevel(){
-       
-//       self.levelNumber += 1
-//
-//       if(self.action(forKey: "spawningEnemies") != nil){
-//           self.removeAction(forKey: "spawningEnemies")
-//       }
-//
-////       var levelDuration = TimeInterval()
-//
-//
-//       switch levelNumber {
-//       case 1:
-//       case 2: var kanjiStage2 = [kanjiLevel1, kanjiLevel2!, kanjiLevel3!, kanjiLevel4!] as [Any]
-//
-//       default:
-////           levelDuration = 0.5
-//           print("cannot find level info")
-//       }
-//
-//       let spawn = SKAction.run(self.spawnAlien)
-////       let waitToSpawn = SKAction.wait(forDuration: 2)
-//       let spawnSequence = SKAction.sequence([spawn])
-//       let spawnForever = SKAction.repeatForever(spawnSequence)
-//       self.run(spawnForever, withKey: "spawningEnemies")
-   }
     func correctPosition() {
             motionManger.accelerometerUpdateInterval = 0.0
             motionManger.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
