@@ -131,16 +131,16 @@ class Question{
     
     func showKanji() {
         
-        let answerKanji = decoyKanji.randomElement()!
-				decoyKanji = decoyKanji.filter() {$0.urutan != answerKanji.urutan}
+        let answerKanji = questionKanjiLevel1.randomElement()!
+//				decoyKanji = decoyKanji.filter() {$0.urutan != answerKanji.urutan}
         let decoyKanji1 = decoyKanji.randomElement()!
-				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji1.urutan}
+//				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji1.urutan}
         let decoyKanji2 = decoyKanji.randomElement()!
-				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji2.urutan}
+//				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji2.urutan}
         let decoyKanji3 = decoyKanji.randomElement()!
-				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji3.urutan}
+//				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji3.urutan}
         
-        //Tampilkan (spit) Kanji2 kedalam layar secara acak
+        //Tampilkan (split) Kanji2 kedalam layar secara acak
         var regatherKanji = [answerKanji, decoyKanji1, decoyKanji2, decoyKanji3]
         
         screenKanji1 = regatherKanji.randomElement()!
@@ -151,7 +151,6 @@ class Question{
         regatherKanji = regatherKanji.filter() {$0.urutan != screenKanji2.urutan}
         screenKanji2.urutan = "b"
         
-        
         screenKanji3 = regatherKanji.randomElement()!
         regatherKanji = regatherKanji.filter() {$0.urutan != screenKanji3.urutan}
         screenKanji3.urutan = "c"
@@ -159,106 +158,15 @@ class Question{
         screenKanji4 = regatherKanji.randomElement()!
         regatherKanji = regatherKanji.filter() {$0.urutan != screenKanji4.urutan}
         screenKanji4.urutan = "d"
+			
+			
+				decoyKanji.append(decoyKanji1)
+				decoyKanji.append(decoyKanji2)
+				decoyKanji.append(decoyKanji3)
+			
         
         kanjiArti = answerKanji.arti
         kanjiKarakter = answerKanji.karakter
         
-        
-        // Fungsi Tampilkan interface
-//        print("\ncoba tebak kanji mana yang artinya : \n\(answerKanji.arti)??")
-//        
-//        print ("\npilihannya adalah \n \n a.\(screenKanji1.karakter) \n b.\(screenKanji2.karakter) \n c.\(screenKanji3.karakter) \n d.\(screenKanji4.karakter)")
-//        
-//        //print jawaban
-//        
-//        print("\n sssttt jawabannya adalah : \(answerKanji.karakter)")
-        
-        
-        
-        //dump(screenKanji1)
-        //        showKanji()
-        
-        
     }
 }
-
-
-//
-//
-//let model = KanjiModel()
-//model.showKanji()
-//
-//
-//
-//
-//var kanjiBallon1 = model.screenKanji1.karakter
-//var kanjiBallon2 = model.screenKanji2.karakter
-//var kanjiBallon3 = model.screenKanji3.karakter
-//var kanjiBallon4 = model.screenKanji4.karakter
-//var question = answerKanji.arti
-//var answer = answerKanji.karakter
-//
-//var send = [kanjiBallon1, kanjiBallon2, kanjiBallon3, kanjiBallon4, question, answer]
-
-
-//struct Question {
-//    let message: String
-//    let answer: String
-//}
-//
-//struct Kanji {
-//    let name: String
-//}
-//
-//var questionList: [Question] = [
-//    Question(message: "Which one of the kanji means meeting?", answer: "会"),
-//    Question(message: "Which one of the kanji means music?", answer: "楽"),
-//]
-//
-//
-//var kanjiList: [Kanji] = [
-//    Kanji(name: "会"),
-//    Kanji(name: "楽"),
-//    Kanji(name: "同"),
-//    Kanji(name: "事"),
-//    Kanji(name: "自"),
-//    Kanji(name: "者"),
-//    Kanji(name: "発"),
-//    Kanji(name: "社"),
-//    Kanji(name: ""),
-//]
-
-
-
-
-
-//func stage1() {
-//
-////    var kanjiStage1 = [kanjiLevel1, kanjiLevel2!, kanjiLevel3!, kanjiLevel4!] as [Any]
-//}
-//
-//let kanji1 = [["楽","Which one of the \n kanji means meeting?"],["楽","Which one of the kanji means music?"]]
-//
-//
-//let level1 = ["楽", "同", "事", "自","者", "発", "社"]
-//let answer1: String = "会"
-//
-//
-//
-////var kanjiText1 = kanjiLevel1
-////var kanjiText2 = kanjiLevel2
-////var kanjiText3 = kanjiLevel3
-////var kanjiText4 = kanjiLevel4
-//
-//let kanjiLevel5 = level1.randomElement()
-//
-//var question1 = "Which one of the kanji means meeting?"
-//
-////if kanjiLevel1 == kanjiLevel2 || kanjiLevel3 || kanjiLevel4 {
-////
-////}
-//
-//// 1. random nilai dari kanji
-//// 2. tambahkan kedalam array
-//// 3. jika kanji sudah ada maka kanji di random ulang
-
