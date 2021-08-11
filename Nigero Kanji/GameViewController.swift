@@ -40,9 +40,9 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-//        musicPlayer = setupAudioPlayerWithFile("Backsong", type: "m4a")
-//        musicPlayer.numberOfLoops = -1
-//        musicPlayer.play()
+        musicPlayer = setupAudioPlayerWithFile("Backsong", type: "m4a")
+        musicPlayer.numberOfLoops = -1
+        musicPlayer.play()
     }
     
     
