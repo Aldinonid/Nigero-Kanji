@@ -72,11 +72,11 @@ class Question{
         Khanji(urutan:"8", karakter:"心", arti:"Heart"),
         Khanji(urutan:"9", karakter:"界", arti:"World"),
         Khanji(urutan:"10", karakter:"教", arti:"Teach"),
-				Khanji(urutan:"11", karakter:"文", arti:"Sentence"),
-				Khanji(urutan:"12", karakter:"手", arti:"Hand"),
-				Khanji(urutan:"13", karakter:"力", arti:"Strength"),
-				Khanji(urutan:"14", karakter:"問", arti:"Question"),
-				Khanji(urutan:"15", karakter:"代", arti:"Replace"),
+        Khanji(urutan:"11", karakter:"文", arti:"Sentence"),
+        Khanji(urutan:"12", karakter:"手", arti:"Hand"),
+        Khanji(urutan:"13", karakter:"力", arti:"Strength"),
+        Khanji(urutan:"14", karakter:"問", arti:"Question"),
+        Khanji(urutan:"15", karakter:"代", arti:"Replace"),
 				Khanji(urutan:"16", karakter:"明", arti:"Light"),
 				Khanji(urutan:"17", karakter:"強", arti:"Strong"),
 				Khanji(urutan:"18", karakter:"公", arti:"Official"),
@@ -132,13 +132,13 @@ class Question{
     func showKanji() {
         
         let answerKanji = questionKanjiLevel1.randomElement()!
-//				decoyKanji = decoyKanji.filter() {$0.urutan != answerKanji.urutan}
+				decoyKanji = decoyKanji.filter() {$0.urutan != answerKanji.urutan}
         let decoyKanji1 = decoyKanji.randomElement()!
-//				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji1.urutan}
+				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji1.urutan}
         let decoyKanji2 = decoyKanji.randomElement()!
-//				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji2.urutan}
+				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji2.urutan}
         let decoyKanji3 = decoyKanji.randomElement()!
-//				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji3.urutan}
+				decoyKanji = decoyKanji.filter() {$0.urutan != decoyKanji3.urutan}
         
         //Tampilkan (split) Kanji2 kedalam layar secara acak
         var regatherKanji = [answerKanji, decoyKanji1, decoyKanji2, decoyKanji3]
@@ -159,12 +159,10 @@ class Question{
         regatherKanji = regatherKanji.filter() {$0.urutan != screenKanji4.urutan}
         screenKanji4.urutan = "d"
 			
-			
-				decoyKanji.append(decoyKanji1)
-				decoyKanji.append(decoyKanji2)
-				decoyKanji.append(decoyKanji3)
-			
-        
+//				decoyKanji.append(decoyKanji1)
+//				decoyKanji.append(decoyKanji2)
+//				decoyKanji.append(decoyKanji3)
+
         kanjiArti = answerKanji.arti
         kanjiKarakter = answerKanji.karakter
         

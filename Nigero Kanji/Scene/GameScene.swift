@@ -32,7 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let kanjiLebel4 = SKLabelNode(fontNamed: "arial")
     let countDownLabel = SKLabelNode(fontNamed: "arial")
     var levelTimerLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
-    var answerLabel = SKLabelNode(fontNamed: "arial")
+    var answerLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
 		var pauseLabel = SKLabelNode(fontNamed: "arial")
 		var pauseDescriptionLabel = SKLabelNode(fontNamed: "arial")
     let spawnWallImage = SKSpriteNode(imageNamed: "wall")
@@ -95,12 +95,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-//        sakuraFalls = SKEmitterNode(fileNamed: "Starfield")
-//        sakuraFalls.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height)
-//        sakuraFalls.advanceSimulationTime(10)
-//        sakuraFalls.setScale(1)
-//        self.addChild(sakuraFalls)
-//        sakuraFalls.zPosition = 1
+        sakuraFalls = SKEmitterNode(fileNamed: "Starfield")
+        sakuraFalls.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height)
+        sakuraFalls.advanceSimulationTime(10)
+        sakuraFalls.setScale(1)
+        self.addChild(sakuraFalls)
+        sakuraFalls.zPosition = 10
         
         runningBackground1()
         runningBackground2()
@@ -116,28 +116,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         questionLabel.isHidden = true
         self.addChild(questionLabel)
 			
-				questionLabel2.numberOfLines = 1
-				questionLabel2.horizontalAlignmentMode = .center
-				questionLabel2.fontSize = 180
-				questionLabel2.preferredMaxLayoutWidth = self.frame.size.width/1.25
-				questionLabel2.zPosition = 4
-				questionLabel2.fontColor = SKColor.white
-				questionLabel2.position = CGPoint(x: (self.size.width/2) + 20, y: (self.size.height/2) - 340)
-				questionLabel2.isHidden = true
-				self.addChild(questionLabel2)
+        questionLabel2.numberOfLines = 1
+		questionLabel2.horizontalAlignmentMode = .center
+		questionLabel2.fontSize = 180
+		questionLabel2.preferredMaxLayoutWidth = self.frame.size.width/1.25
+		questionLabel2.zPosition = 4
+		questionLabel2.fontColor = SKColor.white
+		questionLabel2.position = CGPoint(x: (self.size.width/2) + 20, y: (self.size.height/2) - 340)
+		questionLabel2.isHidden = true
+			self.addChild(questionLabel2)
         
         answerLabel.fontSize = 100
-        answerLabel.fontColor = SKColor.brown
+        answerLabel.fontColor = SKColor.white
         answerLabel.preferredMaxLayoutWidth = self.frame.size.width/2
-        answerLabel.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) - 300)
+        answerLabel.position = CGPoint(x: self.size.width/2, y: (self.size.height/2) + 200)
         answerLabel.zPosition = 1
+        answerLabel.fontColor = SKColor(red: 50/255, green: 157/255, blue: 168/255, alpha: 1)
+        answerLabel.isHidden = true
+//        addChild(answerLabel)
         
         kanjiLebel1.fontSize = 75
         kanjiLebel1.fontColor = SKColor.white
         kanjiLebel1.position = CGPoint(x: self.frame.size.width/8, y: self.frame.size.height/1.5)
         kanjiLebel1.zPosition = 5
         self.addChild(kanjiLebel1)
-				kanjiLebel1.isHidden = true
+        kanjiLebel1.isHidden = true
         
         kanjiLebel2.fontSize = 75
         kanjiLebel2.fontColor = SKColor.white
@@ -162,8 +165,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // player
         player = SKSpriteNode(imageNamed: "ninja1")
-        player.position = CGPoint(x: self.frame.size.width / 2, y: player.size.height / 2 - 88)
-				player.setScale(0.4)
+        player.position = CGPoint(x: self.frame.size.width / 2, y: player.size.height / 2 - 100)
+				player.setScale(0.3)
         player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width/4)
         player.physicsBody?.isDynamic = true
         player.physicsBody!.categoryBitMask = PhysicsCategories.Player
@@ -174,7 +177,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         self.physicsWorld.contactDelegate = self
         
-        self.scoreLabel.text = "Score: \(gameScore)"
+        self.scoreLabel.text = "Score: \(gameScore)/10"
         self.scoreLabel.fontSize = 70
         self.scoreLabel.fontColor = SKColor.white
         self.scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
@@ -295,14 +298,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let question = model.kanjiArti
         let answer = model.kanjiKarakter
         
-        scoreLabel.text = "Score: \(gameScore)"
-				self.pauseDescriptionLabel.text = "Currently you have answered \n\(gameScore) questions correctly"
+        scoreLabel.text = "Score: \(gameScore)/10"
+        self.pauseDescriptionLabel.text = "Currently you have answered \n\(gameScore) questions correctly"
         self.kanjiLebel1.text = kanjiBallon1
         self.kanjiLebel2.text = kanjiBallon2
         self.kanjiLebel3.text = kanjiBallon3
         self.kanjiLebel4.text = kanjiBallon4
         self.questionLabel.text = "kanji of"
-				self.questionLabel2.text = "\(question)"
+        self.questionLabel2.text = "\(question)"
         self.answerLabel.text = answer
            
     }
@@ -425,6 +428,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 												kanjiLebel2.isHidden = false
 												kanjiLebel3.isHidden = false
 												kanjiLebel4.isHidden = false
+                                            answerLabel.isHidden = false
 										}
                     
                     if levelTimerValue == 0 {
@@ -432,6 +436,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 												kanjiLebel2.isHidden = true
 												kanjiLebel3.isHidden = true
 												kanjiLebel4.isHidden = true
+                        answerLabel.isHidden = true
                         
                         var wallArray = [SKAction]()
                         wallArray.append(SKAction.removeFromParent())
@@ -449,9 +454,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 										kanjiLabel()
 										enableGyro()
 										levelNumber += 1
-//										if levelNumber == 10 {
-//												runGameOver()
-//										}
+										if levelNumber == 10 {
+												runGameOver()
+										}
 								}
             })
         let sequence = SKAction.sequence([block, wait])
@@ -527,7 +532,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addScore(){
         
         gameScore += 1
-        self.scoreLabel.text = "Score: \(gameScore)"
+        self.scoreLabel.text = "Score: \(gameScore)/10"
         
         let scaleUp = SKAction.scale(to: 1.5, duration: 0.2)
         let scaleDown = SKAction.scale(to: 1, duration: 0.2)
@@ -1104,7 +1109,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     player.run(SKAction.sequence(playerArray))
                 }
 
-        
     }
     
     func enableGyro () {
